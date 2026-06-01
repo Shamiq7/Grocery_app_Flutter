@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/Homepg.dart';
 import 'package:grocery_app_flutter/LoginPg.dart';
 
 class Loginpg extends StatefulWidget {
@@ -111,7 +112,7 @@ class _LoginpgState extends State<Loginpg> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Homepage(),
+                                    builder: (context) => Homepg(),
                                   ),
                                 );
                               },
