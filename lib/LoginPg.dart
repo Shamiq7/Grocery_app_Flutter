@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/Homepg.dart';
-import 'package:grocery_app_flutter/SplashScreen.dart';
 import 'package:grocery_app_flutter/functions/authfunction.dart';
 
 class Homepage extends StatefulWidget {

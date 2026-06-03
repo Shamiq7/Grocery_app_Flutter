@@ -9,6 +9,7 @@ class Homepg extends StatefulWidget {
 }
 
 class _HomepgState extends State<Homepg> {
+  int quantity = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +19,7 @@ class _HomepgState extends State<Homepg> {
           child: Stack(
             children: [
               Positioned.fill(
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   height: double.infinity,
 
@@ -99,8 +100,7 @@ class _HomepgState extends State<Homepg> {
                 left: 10,
                 right: 10,
                 child: SizedBox(
-                  height: 250,
-
+                  height: 310,
                   child: ListView.builder(
                     itemCount: 5,
                     scrollDirection: Axis.horizontal,
@@ -110,7 +110,7 @@ class _HomepgState extends State<Homepg> {
                           Row(
                             children: [
                               Container(
-                                height: 240,
+                                height: 310,
                                 width: 240,
                                 margin: EdgeInsets.only(right: 10),
                                 child: Card(
@@ -118,122 +118,17 @@ class _HomepgState extends State<Homepg> {
 
                                   child: Column(
                                     children: [
-                                      SizedBox(height: 3),
                                       Container(
                                         height: 180,
                                         width: 180,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                        ),
+
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadiusGeometry.circular(20),
 
-                                          child: InkWell(
-                                            onTap: () {
-                                              // showModalBottomSheet(
-                                              //   backgroundColor: Colors.green,
-                                              //   shape: RoundedRectangleBorder(
-                                              //     borderRadius:
-                                              //         BorderRadiusGeometry.only(
-                                              //           topLeft:
-                                              //               Radius.circular(20),
-                                              //           topRight:
-                                              //               Radius.circular(20),
-                                              //         ),
-                                              //   ),
-                                              //   elevation: 10,
-                                              //   context: context,
-                                              //   builder: (context) {
-                                              //     return Column(
-                                              //       mainAxisSize:
-                                              //           MainAxisSize.min,
-                                              //       children: [
-                                              //         ListTile(
-                                              //           leading: Text(
-                                              //             '1.',
-                                              //             style: TextStyle(
-                                              //               color: Colors.white,
-                                              //               fontSize: 25,
-                                              //             ),
-                                              //           ),
-                                              //           title: Text(
-                                              //             '\$20',
-                                              //             style: TextStyle(
-                                              //               color: Colors.white,
-                                              //               fontWeight:
-                                              //                   FontWeight.bold,
-                                              //               fontSize: 30,
-                                              //             ),
-                                              //           ),
-                                              //           subtitle: Text(
-                                              //             'Organic Broccli 300g',
-                                              //             style: TextStyle(
-                                              //               color: Colors.white,
-                                              //               fontSize: 20,
-                                              //             ),
-                                              //           ),
-                                              //           trailing:
-                                              //               ElevatedButton(
-                                              //                 onPressed: () {},
-                                              //                 child: Text(
-                                              //                   'Add to Cart',
-                                              //                 ),
-                                              //               ),
-                                              //         ),
-                                              //         // ListTile(
-                                              //         //   leading: Text('Ok'),
-                                              //         //   title: Text('okk'),
-                                              //         //   trailing: IconButton(
-                                              //         //     onPressed: () {
-                                              //         //       Navigator.pop(
-                                              //         //         context,
-                                              //         //       );
-                                              //         //     },
-                                              //         //     icon: Icon(
-                                              //         //       Icons.close,
-                                              //         //     ),
-                                              //         //   ),
-                                              //         // ),
-                                              //         // ListTile(
-                                              //         //   leading: Text('Ok'),
-                                              //         //   title: Text('okk'),
-                                              //         //   trailing: IconButton(
-                                              //         //     onPressed: () {
-                                              //         //       Navigator.pop(
-                                              //         //         context,
-                                              //         //       );
-                                              //         //     },
-                                              //         //     icon: Icon(
-                                              //         //       Icons.close,
-                                              //         //     ),
-                                              //         //   ),
-                                              //         // ),
-                                              //         // ListTile(
-                                              //         //   leading: Text('Ok'),
-                                              //         //   title: Text('okk'),
-                                              //         //   trailing: IconButton(
-                                              //         //     onPressed: () {
-                                              //         //       Navigator.pop(
-                                              //         //         context,
-                                              //         //       );
-                                              //         //     },
-                                              //         //     icon: Icon(
-                                              //         //       Icons.close,
-                                              //         //     ),
-                                              //         //   ),
-                                              //         // ),
-                                              //       ],
-                                              //     );
-                                              //   },
-                                              // );
-                                            },
-                                            child: Image.asset(
-                                              'images/picc2.png',
-                                              fit: BoxFit.fill,
-                                            ),
+                                          child: Image.asset(
+                                            'images/picc2.png',
+                                            fit: BoxFit.fill,
                                           ),
                                         ),
                                       ),
@@ -243,36 +138,100 @@ class _HomepgState extends State<Homepg> {
                                             padding: const EdgeInsets.fromLTRB(
                                               10,
                                               0,
-                                              20,
+                                              10,
                                               0,
                                             ),
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  '\$20',
-                                                  style: TextStyle(
-                                                    fontSize: 25,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  '\$20',
-                                                  style: TextStyle(
-                                                    fontSize: 25,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
+                                            child: Text(
+                                              '\$20',
+                                              style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
+                                          SizedBox(width: 15),
                                           Text(
-                                            'Organic Broccli\n 300g',
+                                            'organic Broccli\n 300g',
                                             style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      SizedBox(height: 5),
+                                      SizedBox(
+                                        width: 200,
+                                        child: quantity == 0
+                                            ? ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.green,
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    quantity = 1;
+                                                  });
+                                                },
+                                                child: Text(
+                                                  'Add',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              )
+                                            : Center(
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+
+                                                  children: [
+                                                    ElevatedButton(
+                                                      style:
+                                                          ElevatedButton.styleFrom(
+                                                            backgroundColor:
+                                                                Colors.green,
+                                                          ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (quantity > 1) {
+                                                            quantity--;
+                                                          } else {
+                                                            quantity = 0;
+                                                          }
+                                                        });
+                                                      },
+                                                      child: Icon(
+                                                        Icons.remove,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 5),
+                                                    Text(
+                                                      quantity.toString(),
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 5),
+                                                    ElevatedButton(
+                                                      style:
+                                                          ElevatedButton.styleFrom(
+                                                            backgroundColor:
+                                                                Colors.green,
+                                                          ),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          quantity++;
+                                                        });
+                                                      },
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                       ),
                                     ],
                                   ),
