@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 import 'package:grocery_app_flutter/modals/list.dart';
+import 'package:grocery_app_flutter/checkoutpg.dart';
 
 class Homepg extends StatefulWidget {
   const Homepg({super.key});
@@ -11,6 +12,7 @@ class Homepg extends StatefulWidget {
 
 class _HomepgState extends State<Homepg> {
   // int quantity = 0;
+  List<Productcards> cartItem = [];
   List<int> quantity = List.filled(Productcard.length, 0);
   @override
   Widget build(BuildContext context) {
@@ -176,6 +178,9 @@ class _HomepgState extends State<Homepg> {
                                         onPressed: () {
                                           setState(() {
                                             item.quantity = 1;
+                                            if (!cartItem.contains(item)) {
+                                              cartItem.add(item);
+                                            }
                                           });
                                           ScaffoldMessenger.of(
                                             context,
@@ -189,7 +194,17 @@ class _HomepgState extends State<Homepg> {
                                               ),
                                               action: SnackBarAction(
                                                 label: 'View Cart',
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          checkoutpg(
+                                                            products: cartItem,
+                                                          ),
+                                                    ),
+                                                  );
+                                                },
                                               ),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
@@ -221,6 +236,7 @@ class _HomepgState extends State<Homepg> {
                                                     item.quantity--;
                                                   } else {
                                                     item.quantity = 0;
+                                                    cartItem.remove(item);
                                                   }
                                                 });
                                                 ScaffoldMessenger.of(
@@ -276,7 +292,22 @@ class _HomepgState extends State<Homepg> {
                                                     ),
                                                     action: SnackBarAction(
                                                       label: 'View Cart',
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (
+                                                                  context,
+                                                                ) => checkoutpg(
+                                                                  products:
+                                                                      cartItem,
+                                                                ),
+                                                          ),
+                                                        ).then((_) {
+                                                          setState(() {});
+                                                        });
+                                                      },
                                                     ),
                                                     shape: RoundedRectangleBorder(
                                                       borderRadius:
