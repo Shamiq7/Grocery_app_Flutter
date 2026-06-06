@@ -177,6 +177,29 @@ class _HomepgState extends State<Homepg> {
                                           setState(() {
                                             item.quantity = 1;
                                           });
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).hideCurrentSnackBar();
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                '${item.desc} added to cart',
+                                              ),
+                                              action: SnackBarAction(
+                                                label: 'View Cart',
+                                                onPressed: () {},
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadiusGeometry.circular(
+                                                      20,
+                                                    ),
+                                              ),
+                                              duration: Duration(seconds: 5),
+                                            ),
+                                          );
                                         },
                                         child: Text(
                                           'Add',
@@ -200,6 +223,27 @@ class _HomepgState extends State<Homepg> {
                                                     item.quantity = 0;
                                                   }
                                                 });
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).hideCurrentSnackBar();
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      '${item.desc} removed from cart',
+                                                    ),
+                                                    duration: Duration(
+                                                      seconds: 2,
+                                                    ),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadiusGeometry.circular(
+                                                            20,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                );
                                               },
                                               child: Icon(
                                                 Icons.remove,
@@ -220,6 +264,31 @@ class _HomepgState extends State<Homepg> {
                                                 setState(() {
                                                   item.quantity++;
                                                 });
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).hideCurrentSnackBar();
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      '${item.desc} added to cart',
+                                                    ),
+                                                    action: SnackBarAction(
+                                                      label: 'View Cart',
+                                                      onPressed: () {},
+                                                    ),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadiusGeometry.circular(
+                                                            20,
+                                                          ),
+                                                    ),
+                                                    duration: Duration(
+                                                      seconds: 5,
+                                                    ),
+                                                  ),
+                                                );
                                               },
                                               child: Icon(
                                                 Icons.add,
@@ -239,186 +308,15 @@ class _HomepgState extends State<Homepg> {
                 ),
               ),
 
-              // Positioned(
-              //   top: 430,
-              //   left: 10,
-              //   right: 10,
-              //   child: Text(
-              //     'Just for you',
-              //     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              //   ),
-              // ),
-              // Positioned(
-              //   top: 475,
-              //   left: 10,
-              //   right: 10,
-              //   child: SizedBox(
-              //     height: 250,
-
-              //     child: ListView.builder(
-              //       itemCount: 5,
-              //       scrollDirection: Axis.horizontal,
-              //       itemBuilder: (context, index) {
-              //         return Column(
-              //           children: [
-              //             Row(
-              //               children: [
-              //                 Container(
-              //                   height: 240,
-              //                   width: 240,
-              //                   margin: EdgeInsets.only(right: 10),
-              //                   child: Card(
-              //                     elevation: 10,
-
-              //                     child: Column(
-              //                       children: [
-              //                         SizedBox(height: 3),
-              //                         Container(
-              //                           height: 180,
-              //                           width: 180,
-              //                           decoration: BoxDecoration(
-              //                             borderRadius: BorderRadius.circular(
-              //                               20,
-              //                             ),
-              //                           ),
-              //                           child: ClipRRect(
-              //                             borderRadius:
-              //                                 BorderRadiusGeometry.circular(20),
-
-              //                             child: Image.asset(
-              //                               'images/picc2.png',
-              //                               fit: BoxFit.fill,
-              //                             ),
-              //                           ),
-              //                         ),
-              //                         Row(
-              //                           children: [
-              //                             Padding(
-              //                               padding: const EdgeInsets.fromLTRB(
-              //                                 10,
-              //                                 0,
-              //                                 20,
-              //                                 0,
-              //                               ),
-              //                               child: Text(
-              //                                 '\$20',
-              //                                 style: TextStyle(
-              //                                   fontSize: 25,
-              //                                   fontWeight: FontWeight.bold,
-              //                                 ),
-              //                               ),
-              //                             ),
-              //                             Text(
-              //                               'Organic Broccli\n 300g',
-              //                               style: TextStyle(
-              //                                 fontSize: 15,
-              //                                 fontWeight: FontWeight.bold,
-              //                               ),
-              //                             ),
-              //                           ],
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ],
-              //             ),
-              //           ],
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
-              // Positioned(
-              //   top: 740,
-              //   left: 10,
-              //   right: 10,
-              //   child: Text(
-              //     'Just for you',
-              //     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              //   ),
-              // ),
-              // Positioned(
-              //   top: 788,
-              //   left: 10,
-              //   right: 10,
-              //   child: SizedBox(
-              //     height: 250,
-
-              //     child: ListView.builder(
-              //       itemCount: 5,
-              //       scrollDirection: Axis.horizontal,
-              //       itemBuilder: (context, index) {
-              //         return Column(
-              //           children: [
-              //             Row(
-              //               children: [
-              //                 Container(
-              //                   height: 240,
-              //                   width: 240,
-              //                   margin: EdgeInsets.only(right: 10),
-              //                   child: Card(
-              //                     elevation: 10,
-
-              //                     child: Column(
-              //                       children: [
-              //                         SizedBox(height: 3),
-              //                         Container(
-              //                           height: 180,
-              //                           width: 180,
-              //                           decoration: BoxDecoration(
-              //                             borderRadius: BorderRadius.circular(
-              //                               20,
-              //                             ),
-              //                           ),
-              //                           child: ClipRRect(
-              //                             borderRadius:
-              //                                 BorderRadiusGeometry.circular(20),
-
-              //                             child: Image.asset(
-              //                               'images/picc2.png',
-              //                               fit: BoxFit.fill,
-              //                             ),
-              //                           ),
-              //                         ),
-              //                         Row(
-              //                           children: [
-              //                             Padding(
-              //                               padding: const EdgeInsets.fromLTRB(
-              //                                 10,
-              //                                 0,
-              //                                 20,
-              //                                 0,
-              //                               ),
-              //                               child: Text(
-              //                                 '\$20',
-              //                                 style: TextStyle(
-              //                                   fontSize: 25,
-              //                                   fontWeight: FontWeight.bold,
-              //                                 ),
-              //                               ),
-              //                             ),
-              //                             Text(
-              //                               'Organic Broccli\n 300g',
-              //                               style: TextStyle(
-              //                                 fontSize: 15,
-              //                                 fontWeight: FontWeight.bold,
-              //                               ),
-              //                             ),
-              //                           ],
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ],
-              //             ),
-              //           ],
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
+              Positioned(
+                top: 490,
+                left: 10,
+                right: 10,
+                child: Text(
+                  'Just for you',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ),
             ],
           ),
         ),
