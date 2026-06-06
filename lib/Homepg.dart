@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/SplashScreen.dart';
+import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
+import 'package:grocery_app_flutter/modals/list.dart';
 
 class Homepg extends StatefulWidget {
   const Homepg({super.key});
@@ -9,7 +10,8 @@ class Homepg extends StatefulWidget {
 }
 
 class _HomepgState extends State<Homepg> {
-  int quantity = 0;
+  // int quantity = 0;
+  List<int> quantity = List.filled(Productcard.length, 0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +20,7 @@ class _HomepgState extends State<Homepg> {
           height: 1500,
           child: Stack(
             children: [
+              //#1
               Positioned.fill(
                 child: SizedBox(
                   width: double.infinity,
@@ -29,6 +32,7 @@ class _HomepgState extends State<Homepg> {
                   ),
                 ),
               ),
+              //#2
               Positioned(
                 top: 0,
 
@@ -73,7 +77,7 @@ class _HomepgState extends State<Homepg> {
                   ),
                 ),
               ),
-
+              //#3
               Positioned(
                 top: 120,
                 left: 5,
@@ -95,151 +99,140 @@ class _HomepgState extends State<Homepg> {
                   ],
                 ),
               ),
+
+              //
+              //
+              //#4
+              //
+              //
               Positioned(
                 top: 166,
                 left: 10,
-                right: 10,
+                right: 8,
                 child: SizedBox(
                   height: 310,
                   child: ListView.builder(
-                    itemCount: 5,
+                    itemCount: Productcard.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Row(
+                      final item = Productcard[index];
+                      return Container(
+                        height: 310,
+                        width: 240,
+
+                        margin: EdgeInsets.only(right: 15),
+                        child: Card(
+                          elevation: 10,
+
+                          child: Column(
                             children: [
-                              Container(
-                                height: 310,
-                                width: 240,
-                                margin: EdgeInsets.only(right: 10),
-                                child: Card(
-                                  elevation: 10,
+                              SizedBox(
+                                height: 180,
+                                width: 180,
 
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        height: 180,
-                                        width: 180,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    20,
+                                  ),
 
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadiusGeometry.circular(20),
+                                  child: item.img,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      10,
+                                      0,
+                                      10,
+                                      0,
+                                    ),
+                                    child: Text(
+                                      item.price,
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 15),
+                                  Text(
+                                    '${item.desc}\n ${item.weight}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              SizedBox(
+                                width: 200,
+                                child: item.quantity == 0
+                                    ? ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.green,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            item.quantity = 1;
+                                          });
+                                        },
+                                        child: Text(
+                                          'Add',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
 
-                                          child: Image.asset(
-                                            'images/picc2.png',
-                                            fit: BoxFit.fill,
-                                          ),
+                                          children: [
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.green,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (item.quantity > 1) {
+                                                    item.quantity--;
+                                                  } else {
+                                                    item.quantity = 0;
+                                                  }
+                                                });
+                                              },
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            SizedBox(width: 5),
+                                            Text(
+                                              item.quantity.toString(),
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            SizedBox(width: 5),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.green,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  item.quantity++;
+                                                });
+                                              },
+                                              child: Icon(
+                                                Icons.add,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                              10,
-                                              0,
-                                              10,
-                                              0,
-                                            ),
-                                            child: Text(
-                                              '\$20',
-                                              style: TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 15),
-                                          Text(
-                                            'organic Broccli\n 300g',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                      SizedBox(
-                                        width: 200,
-                                        child: quantity == 0
-                                            ? ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.green,
-                                                ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    quantity = 1;
-                                                  });
-                                                },
-                                                child: Text(
-                                                  'Add',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              )
-                                            : Center(
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-
-                                                  children: [
-                                                    ElevatedButton(
-                                                      style:
-                                                          ElevatedButton.styleFrom(
-                                                            backgroundColor:
-                                                                Colors.green,
-                                                          ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          if (quantity > 1) {
-                                                            quantity--;
-                                                          } else {
-                                                            quantity = 0;
-                                                          }
-                                                        });
-                                                      },
-                                                      child: Icon(
-                                                        Icons.remove,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 5),
-                                                    Text(
-                                                      quantity.toString(),
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 5),
-                                                    ElevatedButton(
-                                                      style:
-                                                          ElevatedButton.styleFrom(
-                                                            backgroundColor:
-                                                                Colors.green,
-                                                          ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          quantity++;
-                                                        });
-                                                      },
-                                                      child: Icon(
-                                                        Icons.add,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
                             ],
                           ),
-                        ],
+                        ),
                       );
                     },
                   ),
