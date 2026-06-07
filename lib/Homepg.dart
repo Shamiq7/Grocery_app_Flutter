@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
-import 'package:grocery_app_flutter/modals/list.dart';
-import 'package:grocery_app_flutter/subwidgets/1homepg.dart';
+import 'package:grocery_app_flutter/checkoutpg.dart';
+import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+
+import 'package:grocery_app_flutter/subwidgets/homepg1.dart';
 import 'package:grocery_app_flutter/subwidgets/homepg2.dart';
 import 'package:grocery_app_flutter/subwidgets/homepg3.dart';
+import 'package:provider/provider.dart';
 
-class Homepg extends StatefulWidget {
+class Homepg extends StatelessWidget {
   const Homepg({super.key});
 
-  @override
-  State<Homepg> createState() => _HomepgState();
-}
-
-class _HomepgState extends State<Homepg> {
-  // int quantity = 0;
-  List<Productcards> cartItem = [];
-  List<int> quantity = List.filled(Productcard.length, 0);
+  
   @override
   Widget build(BuildContext context) {
+    final provider2 = context.read<homepgprovider>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -84,7 +80,7 @@ class _HomepgState extends State<Homepg> {
               //#3
               Positioned(
                 top: 120,
-                left: 5,
+
                 child: Row(
                   children: [
                     Padding(
@@ -98,8 +94,24 @@ class _HomepgState extends State<Homepg> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 85),
-                    Text('View all', style: TextStyle(fontSize: 15)),
+                    SizedBox(width: 70),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                checkoutpg(products: provider2.cartItems),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'View Cart',
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 17, 101, 19),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

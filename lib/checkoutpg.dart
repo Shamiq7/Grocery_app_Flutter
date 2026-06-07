@@ -14,8 +14,11 @@ class checkoutpg extends StatefulWidget {
 class _checkoutpgState extends State<checkoutpg> {
   @override
   Widget build(BuildContext context) {
-    context.watch<homepgprovider>();
+    final provider2 = context.watch<homepgprovider>();
     final provider = context.read<homepgprovider>();
+    //   context.watch<homepgprovider>();
+    // final provider = context.read<homepgprovider>();
+    // can do this do how it works - provider calls the func - func have notifylistner() it also gets called - whenever notifylistner() gets called then watch() rebuild the entire ui 
 
     return Scaffold(
       appBar: AppBar(title: Text('view page'), centerTitle: true),
@@ -102,7 +105,7 @@ class _checkoutpgState extends State<checkoutpg> {
               Text('Total:', style: TextStyle(fontSize: 30)),
               SizedBox(width: 10),
               Text(
-                '\$${provider.totalPrice.toStringAsFixed(2)}',
+                '\$${provider2.totalPrice.toStringAsFixed(2)}',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               Spacer(),

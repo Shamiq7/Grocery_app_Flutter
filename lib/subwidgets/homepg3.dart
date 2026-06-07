@@ -160,12 +160,7 @@ class Homepg3 extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) => checkoutpg(
-                                                products: allProduct
-                                                    .where(
-                                                      (item) =>
-                                                          item.quantity > 0,
-                                                    )
-                                                    .toList(),
+                                                products: provider.cartItems,
                                               ),
                                             ),
                                           );

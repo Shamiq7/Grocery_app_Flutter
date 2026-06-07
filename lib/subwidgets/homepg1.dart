@@ -9,7 +9,7 @@ class homepg1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<homepgprovider>(); //listens for changes
+   final provider2 = context.watch<homepgprovider>(); //listens for changes
     final provider = context.read<homepgprovider>(); //calls functions
     return ListView.builder(
       itemCount: Productcard.length,
@@ -79,11 +79,7 @@ class homepg1 extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => checkoutpg(
-                                          products: allProduct
-                                              .where(
-                                                (item) => item.quantity > 0,
-                                              )
-                                              .toList(),
+                                          products: provider.cartItems
                                         ),
                                       ),
                                     );
@@ -160,12 +156,7 @@ class homepg1 extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) => checkoutpg(
-                                                products: allProduct
-                                                    .where(
-                                                      (item) =>
-                                                          item.quantity > 0,
-                                                    )
-                                                    .toList(),
+                                                products: provider2.cartItems
                                               ),
                                             ),
                                           );
