@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
+import 'package:grocery_app_flutter/detailspg.dart';
 import 'package:grocery_app_flutter/modals/list.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,10 @@ class homepg1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //  final provider2 = context.watch<homepgprovider>(); //listens for changes
-    context.watch<homepgprovider>(); // why use this here? because when provider.addtocart etc is called then notifylistner gets called and we need that ui gets rebuild in homepg1, but if we have no watch( ) then we cannot rebuild that is why we use it here
+    context
+        .watch<
+          homepgprovider
+        >(); // why use this here? because when provider.addtocart etc is called then notifylistner gets called and we need that ui gets rebuild in homepg1, but if we have no watch( ) then we cannot rebuild that is why we use it here
     //why not use provider2 here because we have no specific ui that needs rebuilding like something inside text(__), listview
     final provider = context.read<homepgprovider>(); //calls functions
 
@@ -33,10 +37,18 @@ class homepg1 extends StatelessWidget {
                   height: 180,
                   width: 180,
 
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(20),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Detailspg()),
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadiusGeometry.circular(20),
 
-                    child: item.img,
+                      child: item.img,
+                    ),
                   ),
                 ),
                 Row(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
+import 'package:grocery_app_flutter/detailspg.dart';
 import 'package:grocery_app_flutter/modals/list.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
@@ -31,10 +32,16 @@ class Homepg2 extends StatelessWidget {
                   height: 180,
                   width: 180,
 
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(20),
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Detailspg()),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadiusGeometry.circular(20),
 
-                    child: item.img,
+                      child: item.img,
+                    ),
                   ),
                 ),
                 Row(
