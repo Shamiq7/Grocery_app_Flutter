@@ -33,3 +33,47 @@ final List<Productcards> Productcard = [
     weight: '200g',
   ),
 ];
+
+final List<Productcards> product2 = [
+  Productcards(
+    desc: 'cheeky manderin',
+    img: Image.asset('images/pic7.png'),
+    price: '\$66',
+    weight: '100g',
+  ),
+  Productcards(
+    desc: 'Devious Apple',
+    img: Image.asset('images/pic8.png'),
+    price: '\$80',
+    weight: '200g',
+  ),
+  Productcards(
+    desc: 'Suspicious banana',
+    img: Image.asset('images/pic9.jpg'),
+    price: '\$29',
+    weight: '250g',
+  ),
+];
+
+final List<Productcards> product3 = [
+  Productcards(
+    desc: 'Diabatic Cake',
+    img: Image.asset('images/pic10.jpg'),
+    price: '\$100',
+    weight: '1 pound',
+  ),
+  Productcards(
+    desc: 'Slippery Soap',
+    img: Image.asset('images/pic11.jpg'),
+    price: '\$66',
+    weight: '100g',
+  ),
+  Productcards(
+    desc: 'Mind Toothpaste',
+    img: Image.asset('images/pic12.png'),
+    price: '\$50',
+    weight: '500 g',
+  ),
+];
+
+final allProduct = [...Productcard, ...product2, ...product3];

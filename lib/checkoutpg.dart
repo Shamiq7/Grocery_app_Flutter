@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
+import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+import 'package:provider/provider.dart';
 
 class checkoutpg extends StatefulWidget {
   final List<Productcards> products;
@@ -12,10 +14,9 @@ class checkoutpg extends StatefulWidget {
 class _checkoutpgState extends State<checkoutpg> {
   @override
   Widget build(BuildContext context) {
-    double total = 0;
-    for (var item in widget.products) {
-      total += double.parse(item.price.replaceAll('\$', '')) * item.quantity;
-    }
+    context.watch<homepgprovider>();
+    final provider = context.read<homepgprovider>();
+
     return Scaffold(
       appBar: AppBar(title: Text('view page'), centerTitle: true),
       body: SafeArea(
@@ -55,13 +56,7 @@ class _checkoutpgState extends State<checkoutpg> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        setState(() {
-                                          if (item.quantity > 1) {
-                                            item.quantity--;
-                                          } else {
-                                            item.quantity = 0;
-                                          }
-                                        });
+                                        provider.removefromcart(item);
                                       },
                                       icon: Icon(Icons.remove_circle, size: 30),
                                     ),
@@ -71,9 +66,7 @@ class _checkoutpgState extends State<checkoutpg> {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        setState(() {
-                                          item.quantity++;
-                                        });
+                                        provider.addtocart(item);
                                       },
                                       icon: Icon(
                                         Icons.add_box_rounded,
@@ -109,7 +102,7 @@ class _checkoutpgState extends State<checkoutpg> {
               Text('Total:', style: TextStyle(fontSize: 30)),
               SizedBox(width: 10),
               Text(
-                '\$${total.toStringAsFixed(2)}',
+                '\$${provider.totalPrice.toStringAsFixed(2)}',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               Spacer(),

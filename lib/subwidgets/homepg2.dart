@@ -1,0 +1,195 @@
+import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/checkoutpg.dart';
+import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
+import 'package:grocery_app_flutter/modals/list.dart';
+import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+import 'package:provider/provider.dart';
+
+class Homepg2 extends StatelessWidget {
+  const Homepg2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    context.watch<homepgprovider>();
+    final provider = context.read<homepgprovider>();
+    return ListView.builder(
+      itemCount: product2.length,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) {
+        final item = product2[index];
+        return Container(
+          height: 310,
+          width: 240,
+
+          margin: EdgeInsets.only(right: 15),
+          child: Card(
+            elevation: 10,
+
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 180,
+                  width: 180,
+
+                  child: ClipRRect(
+                    borderRadius: BorderRadiusGeometry.circular(20),
+
+                    child: item.img,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: Text(
+                        item.price,
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      '${item.desc}\n ${item.weight}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5),
+                SizedBox(
+                  width: 200,
+                  child: item.quantity == 0
+                      ? ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          onPressed: () {
+                            provider.addtocart(item);
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('${item.desc} added to cart'),
+                                action: SnackBarAction(
+                                  label: 'View Cart',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => checkoutpg(
+                                          products: allProduct
+                                              .where(
+                                                (item) => item.quantity > 0,
+                                              )
+                                              .toList(),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    20,
+                                  ),
+                                ),
+                                duration: Duration(seconds: 5),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Add',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
+                      : Center(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                ),
+                                onPressed: () {
+                                  provider.removefromcart(item);
+                                  ScaffoldMessenger.of(
+                                    context,
+                                  ).hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        '${item.desc} removed from cart',
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadiusGeometry.circular(20),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Icon(Icons.remove, color: Colors.white),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                item.quantity.toString(),
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              SizedBox(width: 5),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                ),
+                                onPressed: () {
+                                  provider.addtocart(item);
+                                  ScaffoldMessenger.of(
+                                    context,
+                                  ).hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        '${item.desc} added to cart',
+                                      ),
+                                      action: SnackBarAction(
+                                        label: 'View Cart',
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => checkoutpg(
+                                                products: allProduct
+                                                    .where(
+                                                      (item) =>
+                                                          item.quantity > 0,
+                                                    )
+                                                    .toList(),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadiusGeometry.circular(20),
+                                      ),
+                                      duration: Duration(seconds: 5),
+                                    ),
+                                  );
+                                },
+                                child: Icon(Icons.add, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
