@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
-import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 import 'package:grocery_app_flutter/modals/list.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,8 @@ class Homepg2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider2 = context.watch<homepgprovider>();
+    // final provider2 = context.watch<homepgprovider>();
+    context.watch<homepgprovider>();
     final provider = context.read<homepgprovider>();
     return ListView.builder(
       itemCount: product2.length,
@@ -79,13 +79,7 @@ class Homepg2 extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => checkoutpg(
-                                          products: allProduct
-                                              .where(
-                                                (item) => item.quantity > 0,
-                                              )
-                                              .toList(),
-                                        ),
+                                        builder: (context) => checkoutpg(),
                                       ),
                                     );
                                   },
@@ -159,9 +153,8 @@ class Homepg2 extends StatelessWidget {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => checkoutpg(
-                                                products: provider2.cartItems,
-                                              ),
+                                              builder: (context) =>
+                                                  checkoutpg(),
                                             ),
                                           );
                                         },

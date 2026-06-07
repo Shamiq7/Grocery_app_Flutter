@@ -1,26 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
-
 import 'package:grocery_app_flutter/subwidgets/homepg1.dart';
 import 'package:grocery_app_flutter/subwidgets/homepg2.dart';
 import 'package:grocery_app_flutter/subwidgets/homepg3.dart';
 import 'package:provider/provider.dart';
 
+// Productcards Model
+//         ↓
+//       list.dart
+//         ↓
+//  Homepg1 / Homepg2 / Homepg3
+//         ↓
+//   homepgprovider
+//         ↓
+//     checkoutpg
+
 class Homepg extends StatelessWidget {
   const Homepg({super.key});
 
-  
   @override
   Widget build(BuildContext context) {
     final provider2 = context.read<homepgprovider>();
+    final provider = context.watch<homepgprovider>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
           height: 1500,
           child: Stack(
             children: [
+              //
               //#1
+              //
               Positioned.fill(
                 child: SizedBox(
                   width: double.infinity,
@@ -32,7 +43,9 @@ class Homepg extends StatelessWidget {
                   ),
                 ),
               ),
+              //
               //#2
+              //
               Positioned(
                 top: 0,
 
@@ -66,20 +79,77 @@ class Homepg extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: 50),
-                        Icon(Icons.notification_add, color: Colors.white),
-                        SizedBox(width: 20),
-                        Icon(Icons.favorite_outline, color: Colors.white),
-                        SizedBox(width: 20),
-                        Icon(Icons.search, color: Colors.white),
+                        SizedBox(width: 100),
+                        CircleAvatar(
+                          backgroundColor: const Color.fromARGB(
+                            255,
+                            17,
+                            101,
+                            19,
+                          ),
+                          radius: 30,
+                          backgroundImage: AssetImage('images/pic7.png'),
+                        ),
                       ],
                     ),
                   ),
                 ),
               ),
-              //#3
               Positioned(
-                top: 120,
+                top: 125,
+                left: 30,
+                child: SizedBox(
+                  height: 54,
+                  width: 350,
+
+                  //
+                  // User types
+                  //       ↓
+                  // onChanged()
+                  //       ↓
+                  // updateSearch()
+                  //       ↓
+                  // searchQuery updated
+                  //       ↓
+                  // notifyListeners()
+                  //       ↓
+                  // Widgets using watch() rebuild
+                  //       ↓
+                  // filterProduct runs again
+                  //       ↓
+                  // New filtered list appears
+                  //
+                  child: TextField(
+                    onChanged: (value) {
+                      provider2.updateSearch(value);
+                    },
+
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.green.shade600,
+                      prefixIcon: Icon(Icons.search, color: Colors.white),
+                      hintText: 'Search Item',
+
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintStyle: TextStyle(color: Colors.white),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(width: 1.5),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(width: 1.5),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              //
+              // //#3
+              //
+              Positioned(
+                top: 190,
 
                 child: Row(
                   children: [
@@ -94,20 +164,23 @@ class Homepg extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 70),
+                    SizedBox(width: 34),
                     TextButton(
                       onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                checkoutpg(products: provider2.cartItems),
+                                // checkoutpg(products: provider2.cartItems),
+                                checkoutpg(),
                           ),
                         );
                       },
                       child: Text(
-                        'View Cart',
+                        'View Cart (${provider.cartCount})',
                         style: TextStyle(
+                          fontSize: 18,
                           color: const Color.fromARGB(255, 17, 101, 19),
                         ),
                       ),
@@ -121,43 +194,115 @@ class Homepg extends StatelessWidget {
               //#4
               //
               //
-              Positioned(
-                top: 166,
-                left: 10,
-                right: 8,
-                child: SizedBox(height: 310, child: homepg1()),
-              ),
+              if (provider.searchQuery.isEmpty)
+                Positioned(
+                  top: 250,
+                  left: 10,
+                  right: 8,
+                  child: SizedBox(height: 310, child: homepg1()),
+                ),
+              //
+              //#5
+              //
+              if (provider.searchQuery.isEmpty)
+                Positioned(
+                  top: 570,
+                  left: 10,
+                  right: 10,
+                  child: Text(
+                    'Just for you',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              //
+              //#6
+              //
+              if (provider.searchQuery.isEmpty)
+                Positioned(
+                  top: 620,
+                  left: 10,
+                  right: 10,
+                  child: SizedBox(height: 310, child: Homepg2()),
+                ),
+              //
+              //#7
+              //
+              if (provider.searchQuery.isEmpty)
+                Positioned(
+                  top: 945,
+                  left: 10,
+                  right: 10,
+                  child: Text(
+                    'Suggested',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              //
+              //#8
+              //
+              if (provider.searchQuery.isEmpty)
+                Positioned(
+                  top: 995,
+                  left: 10,
+                  right: 10,
+                  child: SizedBox(height: 310, child: Homepg3()),
+                ),
 
-              Positioned(
-                top: 490,
-                left: 10,
-                right: 10,
-                child: Text(
-                  'Just for you',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              //
+              //
+              //                 //9//
+              //
+              //
+              if (provider.searchQuery.isNotEmpty)
+                Positioned(
+                  top: 250,
+                  left: 10,
+                  right: 10,
+                  child: SizedBox(
+                    height: 1000,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Search Results',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: provider.filterProduct.length,
+                            itemBuilder: (context, index) {
+                              final item = provider.filterProduct[index];
+
+                              return Card(
+                                elevation: 5,
+                                child: ListTile(
+                                  leading: SizedBox(
+                                    height: 60,
+                                    width: 60,
+                                    child: item.img,
+                                  ),
+                                  title: Text(item.desc),
+                                  subtitle: Text(item.weight),
+                                  trailing: Text(
+                                    item.price,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              Positioned(
-                top: 540,
-                left: 10,
-                right: 10,
-                child: SizedBox(height: 310, child: Homepg2()),
-              ),
-              Positioned(
-                top: 855,
-                left: 10,
-                right: 10,
-                child: Text(
-                  'Suggested',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Positioned(
-                top: 910,
-                left: 10,
-                right: 10,
-                child: SizedBox(height: 310, child: Homepg3()),
-              ),
             ],
           ),
         ),

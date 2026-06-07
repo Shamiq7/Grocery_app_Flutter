@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
-import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
+
 import 'package:grocery_app_flutter/modals/list.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
@@ -79,13 +79,7 @@ class Homepg3 extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => checkoutpg(
-                                          products: allProduct
-                                              .where(
-                                                (item) => item.quantity > 0,
-                                              )
-                                              .toList(),
-                                        ),
+                                        builder: (context) => checkoutpg(),
                                       ),
                                     );
                                   },
@@ -159,9 +153,8 @@ class Homepg3 extends StatelessWidget {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => checkoutpg(
-                                                products: provider.cartItems,
-                                              ),
+                                              builder: (context) =>
+                                                  checkoutpg(),
                                             ),
                                           );
                                         },

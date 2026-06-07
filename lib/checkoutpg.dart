@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
-class checkoutpg extends StatefulWidget {
-  final List<Productcards> products;
-  const checkoutpg({super.key, required this.products});
+class checkoutpg extends StatelessWidget {
+  // final List<Productcards> products; we were using these when homepg1,2,3 were sending their selected items manually, now it is present inside provider so now we can use provider(watch()) insted of list here 
+  const checkoutpg({super.key});
 
-  @override
-  State<checkoutpg> createState() => _checkoutpgState();
-}
-
-class _checkoutpgState extends State<checkoutpg> {
   @override
   Widget build(BuildContext context) {
     final provider2 = context.watch<homepgprovider>();
     final provider = context.read<homepgprovider>();
     //   context.watch<homepgprovider>();
     // final provider = context.read<homepgprovider>();
-    // can do this do how it works - provider calls the func - func have notifylistner() it also gets called - whenever notifylistner() gets called then watch() rebuild the entire ui 
-
+    // can do this do how it works - provider calls the func - func have notifylistner() it also gets called - whenever notifylistner() gets called then watch() rebuild the entire ui
+      //          Provider
+      //        /    |    \
+      //       /     |     \
+      // Homepg1  Homepg2  Homepg3            
+      //       \     |     /
+      //        \    |    /
+      //        Checkoutpg
+      // everybody talking to same provider        read  -> I want to DO something
+      //                                           watch -> I want to SHOW something
     return Scaffold(
       appBar: AppBar(title: Text('view page'), centerTitle: true),
       body: SafeArea(
@@ -27,9 +29,9 @@ class _checkoutpgState extends State<checkoutpg> {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: widget.products.length,
+                itemCount: provider2.cartItems.length,
                 itemBuilder: (context, index) {
-                  final item = widget.products[index];
+                  final item = provider2.cartItems[index];
                   return Container(
                     child: Center(
                       child: item.quantity == 0

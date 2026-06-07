@@ -9,8 +9,11 @@ class homepg1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final provider2 = context.watch<homepgprovider>(); //listens for changes
+    //  final provider2 = context.watch<homepgprovider>(); //listens for changes
+    context.watch<homepgprovider>(); // why use this here? because when provider.addtocart etc is called then notifylistner gets called and we need that ui gets rebuild in homepg1, but if we have no watch( ) then we cannot rebuild that is why we use it here
+    //why not use provider2 here because we have no specific ui that needs rebuilding like something inside text(__), listview
     final provider = context.read<homepgprovider>(); //calls functions
+
     return ListView.builder(
       itemCount: Productcard.length,
       scrollDirection: Axis.horizontal,
@@ -79,7 +82,7 @@ class homepg1 extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => checkoutpg(
-                                          products: provider.cartItems
+                                          // products: provider.cartItems
                                         ),
                                       ),
                                     );
@@ -131,7 +134,7 @@ class homepg1 extends StatelessWidget {
                               SizedBox(width: 5),
                               Text(
                                 item.quantity.toString(),
-                               
+
                                 style: TextStyle(fontSize: 20),
                               ),
                               SizedBox(width: 5),
@@ -156,7 +159,7 @@ class homepg1 extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) => checkoutpg(
-                                                products: provider2.cartItems
+                                                // products: provider2.cartItems
                                               ),
                                             ),
                                           );
