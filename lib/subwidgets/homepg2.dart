@@ -35,7 +35,7 @@ class Homepg2 extends StatelessWidget {
                   child: InkWell(
                     onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Detailspg()),
+                      MaterialPageRoute(builder: (context) => Detailspg(product: item,)),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(20),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
-import 'package:grocery_app_flutter/detailspg.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:grocery_app_flutter/subwidgets/filterpg.dart';
 import 'package:grocery_app_flutter/subwidgets/homepg1.dart';
@@ -166,7 +165,7 @@ class Homepg extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 34),
+                    SizedBox(width: 40),
                     TextButton(
                       onPressed: () {
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/checkoutpg.dart';
+import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
+import 'package:grocery_app_flutter/modals/list.dart';
+import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+import 'package:provider/provider.dart';
 
 class Detailspg extends StatefulWidget {
-  const Detailspg({super.key});
+  final Productcards product;
+  const Detailspg({super.key, required this.product});
 
   @override
   State<Detailspg> createState() => _DetailspgState();
@@ -10,16 +16,153 @@ class Detailspg extends StatefulWidget {
 class _DetailspgState extends State<Detailspg> {
   @override
   Widget build(BuildContext context) {
+    context.watch<homepgprovider>();
+    final provider = context.read<homepgprovider>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Item Description Page'),
-        centerTitle: true,
+      body: SizedBox(
+        height: 1500,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: Opacity(
+                  opacity: 0.78,
+                  child: Image.asset('images/pic4.png', fit: BoxFit.fill),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 30,
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back),
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 50),
+                  Text(
+                    'Product Details',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
+            Positioned(
+              top: 100,
+              left: 30,
+              child: Column(
+                children: [
+                  Container(height: 300, width: 350, child: widget.product.img),
+                  SizedBox(height: 10),
+                  Text(
+                    '${widget.product.desc} (${widget.product.weight})',
+                    style: TextStyle(fontSize: 30, color: Colors.white),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    widget.product.price,
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  widget.product.quantity == 0
+                      ? ElevatedButton(
+                          onPressed: () {
+                            provider.addtocart(widget.product);
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Item Added to Cart'),
+                                action: SnackBarAction(
+                                  label: 'View Cart',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => checkoutpg(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text('Add to Cart'),
+                        )
+                      : Center(
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(),
+                                onPressed: () {
+                                  provider.removefromcart(widget.product);
+                                  ScaffoldMessenger.of(
+                                    context,
+                                  ).hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Item Removed from Cart'),
+                                    ),
+                                  );
+                                },
+                                child: Icon(Icons.remove, color: Colors.black),
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                widget.product.quantity.toString(),
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              ElevatedButton(
+                                onPressed: () {
+                                  provider.addtocart(widget.product);
+
+                                  ScaffoldMessenger.of(
+                                    context,
+                                  ).hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Item Added to Cart'),
+                                      action: SnackBarAction(
+                                        label: 'View Cart',
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  checkoutpg(),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Icon(Icons.add, color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

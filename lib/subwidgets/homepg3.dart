@@ -36,7 +36,7 @@ class Homepg3 extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Detailspg()),
+                        MaterialPageRoute(builder: (context) => Detailspg(product: item,)),
                       );
                     },
                     child: ClipRRect(

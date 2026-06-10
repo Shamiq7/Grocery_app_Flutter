@@ -3,7 +3,7 @@ import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
 class checkoutpg extends StatelessWidget {
-  // final List<Productcards> products; we were using these when homepg1,2,3 were sending their selected items manually, now it is present inside provider so now we can use provider(watch()) insted of list here 
+  // final List<Productcards> products; we were using these when homepg1,2,3 were sending their selected items manually, now it is present inside provider so now we can use provider(watch() and func cartItems which contains all the ele we have selected from homepg1,2,3) insted of list here 
   const checkoutpg({super.key});
 
   @override
