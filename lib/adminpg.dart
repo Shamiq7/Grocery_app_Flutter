@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/Homepg.dart';
 import 'package:grocery_app_flutter/LoginPg.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 import 'package:grocery_app_flutter/modals/list.dart';
@@ -51,7 +52,7 @@ class _AdminpgState extends State<Adminpg> {
                           },
                           icon: Icon(Icons.arrow_back, color: Colors.white),
                         ),
-                        SizedBox(width: 15),
+                        SizedBox(width: 10),
                         Text(
                           'Admin Panel',
                           style: TextStyle(
@@ -59,6 +60,16 @@ class _AdminpgState extends State<Adminpg> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
+                        ),
+                        SizedBox(width: 8),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Homepg()),
+                            );
+                          },
+                          icon: Icon(Icons.home_filled, color: Colors.white),
                         ),
                       ],
                     ),
@@ -136,7 +147,7 @@ class _AdminpgState extends State<Adminpg> {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'Weight',
+                          hintText: 'Weight in g',
                           label: Text('Add Product Weight'),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -182,6 +193,53 @@ class _AdminpgState extends State<Adminpg> {
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
+                          //empty field validation
+                          if (namecontroller.text.isEmpty ||
+                              pricecontroller.text.isEmpty ||
+                              weightcontroller.text.isEmpty ||
+                              imagecontroller.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('PLease Fill All the Fields'),
+                              ),
+                            );
+                            return;
+                          }
+                          //image path validation
+                          if (!imagecontroller.text.startsWith('images/') ||
+                              !(imagecontroller.text.endsWith('png') ||
+                                  imagecontroller.text.endsWith('jpg') ||
+                                  imagecontroller.text.endsWith('jpeg'))) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'image path must be in the format images/mango.png',
+                                ),
+                              ),
+                            );
+                            return;
+                          }
+                          //price validation
+                          if (double.tryParse(pricecontroller.text) == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Price must be a valid number'),
+                              ),
+                            );
+                            return;
+                          }
+                          //duplicate check
+                          if (allProduct.any(
+                            (item) =>
+                                item.desc.toLowerCase() ==
+                                namecontroller.text.toLowerCase(),
+                          )) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Product already exists')),
+                            );
+                            return;
+                          }
+
                           allProduct.add(
                             Productcards(
                               desc: namecontroller.text,
@@ -190,6 +248,13 @@ class _AdminpgState extends State<Adminpg> {
                               weight: weightcontroller.text,
                             ),
                           );
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text('Item Added')));
+                          namecontroller.clear();
+                          pricecontroller.clear();
+                          weightcontroller.clear();
+                          imagecontroller.clear();
                           setState(() {});
                         },
                         child: Text('Add'),
@@ -235,7 +300,20 @@ class _AdminpgState extends State<Adminpg> {
                                   ),
 
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      allProduct.remove(item);
+                                      setState(() {});
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text('${item.desc} deleted'),
+                                        ),
+                                      );
+                                    },
                                     icon: Icon(Icons.delete),
                                   ),
                                 ],
