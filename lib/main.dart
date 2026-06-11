@@ -10,12 +10,10 @@ void main() async {
   await Firebase.initializeApp();
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_)=> homepgprovider()),
-      ],
-      child: MyApp())
-    
-    );
+      providers: [ChangeNotifierProvider(create: (_) => homepgprovider())],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,6 +22,32 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Loginpg());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: spalshscreen());
   }
 }
+
+
+
+// Initial archetecture            
+// Productcards Model                   
+//         ↓
+//    list.dart
+//         ↓
+//    Provider
+//         ↓
+//         UI
+
+// what we want to do
+//      Admin
+//       ↓
+//  Firebase Storage
+//       ↓
+//    Firestore
+//       ↓
+//    Provider
+//       ↓
+//      UI     goal-         Admin uploads products.
+
+// Users automatically see them.
+
+// No code changes.

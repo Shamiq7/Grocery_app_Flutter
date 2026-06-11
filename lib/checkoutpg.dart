@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/Homepg.dart';
 import 'package:grocery_app_flutter/detailspg.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
@@ -45,8 +46,7 @@ class checkoutpg extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            Detailspg(product: item),
+                                        builder: (context) => Homepg(),
                                       ),
                                     );
                                   },

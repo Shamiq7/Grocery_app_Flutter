@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/Homepg.dart';
+import 'package:grocery_app_flutter/adminpg.dart';
 import 'package:grocery_app_flutter/functions/authfunction.dart';
 
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+class Loginpg extends StatefulWidget {
+  const Loginpg({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<Loginpg> createState() => _LoginpgState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _LoginpgState extends State<Loginpg> {
   bool isLogin = false;
   final _formKEY = GlobalKey<FormState>();
 
@@ -19,15 +20,6 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: const Color.fromARGB(255, 17, 101, 19),
-      //   leading: IconButton(
-      //     onPressed: () {
-      //       Navigator.pop(context);
-      //     },
-      //     icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
-      //   ),
-      // ),
       body: Column(
         children: [
           Expanded(
@@ -159,16 +151,31 @@ class _HomepageState extends State<Homepage> {
                         SizedBox(
                           width: 250,
                           child: ElevatedButton(
-                            onPressed: ()async {
+                            onPressed: () async {
                               if (_formKEY.currentState!.validate()) {
                                 _formKEY.currentState!.save();
-                                signup(mail, password);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Homepg(),
-                                  ),
-                                );
+                                if (isLogin) {
+                                  await login(mail, password);
+                                } else {
+                                  await signup(mail, password);
+                                }
+                                //
+                                //
+                                if (mail == 'admin@gmail.com') {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Adminpg(),
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Homepg(),
+                                    ),
+                                  );
+                                }
                               }
                             },
                             child: !isLogin

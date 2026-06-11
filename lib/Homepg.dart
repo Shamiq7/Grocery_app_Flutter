@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/LoginPg.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:grocery_app_flutter/subwidgets/filterpg.dart';
@@ -60,7 +61,12 @@ class Homepg extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Loginpg(),
+                              ),
+                            );
                           },
                           icon: Icon(Icons.arrow_back, color: Colors.white),
                         ),

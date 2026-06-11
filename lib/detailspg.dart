@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/Homepg.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
-import 'package:grocery_app_flutter/modals/list.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
-class Detailspg extends StatefulWidget {
+class Detailspg extends StatelessWidget {
   final Productcards product;
   const Detailspg({super.key, required this.product});
 
-  @override
-  State<Detailspg> createState() => _DetailspgState();
-}
-
-class _DetailspgState extends State<Detailspg> {
   @override
   Widget build(BuildContext context) {
     context.watch<homepgprovider>();
@@ -29,7 +23,7 @@ class _DetailspgState extends State<Detailspg> {
                 height: double.infinity,
                 width: double.infinity,
                 child: Opacity(
-                  opacity: 0.78,
+                  opacity: 0.88,
                   child: Image.asset('images/pic4.png', fit: BoxFit.fill),
                 ),
               ),
@@ -66,15 +60,15 @@ class _DetailspgState extends State<Detailspg> {
               left: 30,
               child: Column(
                 children: [
-                  SizedBox(height: 300, width: 350, child: widget.product.img),
+                  SizedBox(height: 300, width: 350, child: product.img),
                   SizedBox(height: 10),
                   Text(
-                    '${widget.product.desc} (${widget.product.weight})',
+                    '${product.desc} (${product.weight})',
                     style: TextStyle(fontSize: 30, color: Colors.white),
                   ),
                   SizedBox(height: 5),
                   Text(
-                    widget.product.price,
+                    product.price,
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
@@ -82,10 +76,10 @@ class _DetailspgState extends State<Detailspg> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  widget.product.quantity == 0
+                  product.quantity == 0
                       ? ElevatedButton(
                           onPressed: () {
-                            provider.addtocart(widget.product);
+                            provider.addtocart(product);
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -112,7 +106,7 @@ class _DetailspgState extends State<Detailspg> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(),
                                 onPressed: () {
-                                  provider.removefromcart(widget.product);
+                                  provider.removefromcart(product);
                                   ScaffoldMessenger.of(
                                     context,
                                   ).hideCurrentSnackBar();
@@ -126,7 +120,7 @@ class _DetailspgState extends State<Detailspg> {
                               ),
                               SizedBox(width: 10),
                               Text(
-                                widget.product.quantity.toString(),
+                                product.quantity.toString(),
                                 style: TextStyle(
                                   fontSize: 25,
                                   color: Colors.white,
@@ -135,7 +129,7 @@ class _DetailspgState extends State<Detailspg> {
                               SizedBox(width: 10),
                               ElevatedButton(
                                 onPressed: () {
-                                  provider.addtocart(widget.product);
+                                  provider.addtocart(product);
 
                                   ScaffoldMessenger.of(
                                     context,

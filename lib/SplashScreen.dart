@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/Homepg.dart';
-import 'package:grocery_app_flutter/LoginPg.dart';
+
 import 'dart:ui';
 
-class Loginpg extends StatefulWidget {
-  const Loginpg({super.key});
+import 'package:grocery_app_flutter/LoginPg.dart';
+
+class spalshscreen extends StatefulWidget {
+  const spalshscreen({super.key});
 
   @override
-  State<Loginpg> createState() => _LoginpgState();
+  State<spalshscreen> createState() => _spalshscreenState();
 }
 
-class _LoginpgState extends State<Loginpg> {
+class _spalshscreenState extends State<spalshscreen> {
   bool isLogin = false;
   @override
   Widget build(BuildContext context) {
@@ -121,7 +122,7 @@ class _LoginpgState extends State<Loginpg> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Homepage(),
+                                          builder: (context) => Loginpg(),
                                         ),
                                       );
                                     },
@@ -151,64 +152,3 @@ class _LoginpgState extends State<Loginpg> {
 
 
 
-// Column(
-//                         children: [
-//                           Padding(
-//                             padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-//                             child: Container(
-//                               height: 300,
-//                               width: 350,
-//                               decoration: BoxDecoration(
-//                                 borderRadius: BorderRadius.circular(20),
-//                               ),
-
-//                               child: ClipRRect(
-//                                 borderRadius: BorderRadiusGeometry.circular(15),
-//                                 child: Image.asset(
-//                                   'images/logo.png',
-//                                   fit: BoxFit.fill,
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
-//                           SizedBox(height: 10),
-//                           Text(
-//                             'Savings, Delivered: from',
-//                             style: TextStyle(
-//                               fontSize: 30,
-//                               fontWeight: FontWeight.bold,
-//                             ),
-//                           ),
-//                           Text(
-//                             'the Store to Your Door',
-//                             style: TextStyle(
-//                               fontSize: 30,
-//                               fontWeight: FontWeight.bold,
-//                             ),
-//                           ),
-//                           SizedBox(height: 90),
-//                           SizedBox(
-//                             width: 390,
-//                             height: 50,
-//                             child: ElevatedButton(
-//                               style: ElevatedButton.styleFrom(
-//                                 backgroundColor: Colors.green,
-//                                 elevation: 5,
-//                               ),
-//                               onPressed: () {
-//                                 Navigator.push(
-//                                   context,
-//                                   MaterialPageRoute(
-//                                     builder: (context) => Homepage(),
-//                                   ),
-//                                 );
-//                               },
-//                               child: Text(
-//                                 'Get Started',
-//                                 style: TextStyle(color: Colors.white),
-//                               ),
-//                             ),
-//                           ),
-//                           SizedBox(height: 10),
-//                         ],
-//                       ),
