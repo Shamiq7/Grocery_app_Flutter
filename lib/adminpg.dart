@@ -295,7 +295,9 @@ class _AdminpgState extends State<Adminpg> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      await _updateItem(context, item, index);
+                                    },
                                     icon: Icon(Icons.edit),
                                   ),
 
@@ -330,6 +332,78 @@ class _AdminpgState extends State<Adminpg> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _updateItem(BuildContext context, Productcards item, int index) {
+    final namecontroller = TextEditingController(text: item.desc);
+    final pricecontroller = TextEditingController(text: item.price);
+    final weightcontroller = TextEditingController(text: item.weight);
+    final imgcontroller = TextEditingController();
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Edit Item'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: namecontroller,
+                  decoration: InputDecoration(label: Text('name')),
+                ),
+                SizedBox(height: 5),
+                TextField(
+                  controller: pricecontroller,
+                  decoration: InputDecoration(label: Text('price')),
+                ),
+                SizedBox(height: 5),
+                TextField(
+                  controller: weightcontroller,
+                  decoration: InputDecoration(label: Text('weight')),
+                ),
+                SizedBox(height: 5),
+                TextField(
+                  controller: imagecontroller,
+                  decoration: InputDecoration(
+                    label: Text('image'),
+                    hintText: 'image/mango.png',
+                  ),
+                ),
+                SizedBox(height: 5),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (namecontroller.text.isEmpty ||
+                    pricecontroller.text.isEmpty ||
+                    weightcontroller.text.isEmpty ||
+                    imagecontroller.text.isEmpty) {
+                  return;
+                }
+                allProduct[index] = Productcards(
+                  desc: namecontroller.text,
+                  img: Image.asset(imagecontroller.text),
+                  price: pricecontroller.text,
+                  weight: weightcontroller.text,
+                  quantity: item.quantity,
+                );
+                Navigator.pop(context);
+              },
+              child: Text('Update'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
