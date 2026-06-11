@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/Homepg.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 import 'package:grocery_app_flutter/modals/list.dart';
@@ -39,7 +40,10 @@ class _DetailspgState extends State<Detailspg> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Homepg()),
+                      );
                     },
                     icon: Icon(Icons.arrow_back),
                     color: Colors.white,

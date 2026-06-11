@@ -67,7 +67,7 @@ class Homepg extends StatelessWidget {
                         SizedBox(width: 10),
                         RichText(
                           text: TextSpan(
-                            text: 'Instamart Delivers\n',
+                            text: 'Green Grocer Delivers\n',
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
@@ -80,7 +80,7 @@ class Homepg extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: 70),
+                        SizedBox(width: 35),
                         CircleAvatar(
                           backgroundColor: const Color.fromARGB(
                             255,
