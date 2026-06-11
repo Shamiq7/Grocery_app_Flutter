@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/LoginPg.dart';
+import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 import 'package:grocery_app_flutter/modals/list.dart';
 
 class Adminpg extends StatefulWidget {
@@ -10,6 +11,11 @@ class Adminpg extends StatefulWidget {
 }
 
 class _AdminpgState extends State<Adminpg> {
+  final namecontroller = TextEditingController();
+  final pricecontroller = TextEditingController();
+  final weightcontroller = TextEditingController();
+  final imagecontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +81,7 @@ class _AdminpgState extends State<Adminpg> {
                       width: 280,
                       height: 50,
                       child: TextField(
+                        controller: namecontroller,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -98,7 +105,9 @@ class _AdminpgState extends State<Adminpg> {
                     Container(
                       width: 280,
                       height: 50,
+
                       child: TextField(
+                        controller: pricecontroller,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -123,6 +132,7 @@ class _AdminpgState extends State<Adminpg> {
                       width: 280,
                       height: 50,
                       child: TextField(
+                        controller: weightcontroller,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -147,10 +157,11 @@ class _AdminpgState extends State<Adminpg> {
                       width: 280,
                       height: 50,
                       child: TextField(
+                        controller: imagecontroller,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'Image URL',
+                          hintText: 'images/name.png',
                           label: Text('Add Product Image URl'),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -170,7 +181,17 @@ class _AdminpgState extends State<Adminpg> {
                     Container(
                       width: 200,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          allProduct.add(
+                            Productcards(
+                              desc: namecontroller.text,
+                              img: Image.asset(imagecontroller.text),
+                              price: pricecontroller.text,
+                              weight: weightcontroller.text,
+                            ),
+                          );
+                          setState(() {});
+                        },
                         child: Text('Add'),
                       ),
                     ),
