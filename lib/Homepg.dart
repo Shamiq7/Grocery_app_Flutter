@@ -67,7 +67,7 @@ class Homepg extends StatelessWidget {
                         SizedBox(width: 10),
                         RichText(
                           text: TextSpan(
-                            text: 'Veggie Mart XL\n',
+                            text: 'Instamart Delivers\n',
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
@@ -80,7 +80,7 @@ class Homepg extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: 100),
+                        SizedBox(width: 70),
                         CircleAvatar(
                           backgroundColor: const Color.fromARGB(
                             255,
@@ -89,7 +89,7 @@ class Homepg extends StatelessWidget {
                             19,
                           ),
                           radius: 30,
-                          backgroundImage: AssetImage('images/pic7.png'),
+                          backgroundImage: AssetImage('images/man.png'),
                         ),
                       ],
                     ),
@@ -211,7 +211,7 @@ class Homepg extends StatelessWidget {
                   left: 10,
                   right: 10,
                   child: Text(
-                    'Just for you',
+                    'Fruits & Veggies',
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -234,7 +234,7 @@ class Homepg extends StatelessWidget {
                   left: 10,
                   right: 10,
                   child: Text(
-                    'Suggested',
+                    'Daily Essentials',
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),

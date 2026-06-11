@@ -62,7 +62,7 @@ class _DetailspgState extends State<Detailspg> {
               left: 30,
               child: Column(
                 children: [
-                  Container(height: 300, width: 350, child: widget.product.img),
+                  SizedBox(height: 300, width: 350, child: widget.product.img),
                   SizedBox(height: 10),
                   Text(
                     '${widget.product.desc} (${widget.product.weight})',

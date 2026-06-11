@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/detailspg.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
 class checkoutpg extends StatelessWidget {
-  // final List<Productcards> products; we were using these when homepg1,2,3 were sending their selected items manually, now it is present inside provider so now we can use provider(watch() and func cartItems which contains all the ele we have selected from homepg1,2,3) insted of list here 
+  // final List<Productcards> products; we were using these when homepg1,2,3 were sending their selected items manually, now it is present inside provider so now we can use provider(watch() and func cartItems which contains all the ele we have selected from homepg1,2,3) insted of list here
   const checkoutpg({super.key});
 
   @override
@@ -13,17 +14,17 @@ class checkoutpg extends StatelessWidget {
     //   context.watch<homepgprovider>();
     // final provider = context.read<homepgprovider>();
     // can do this do how it works - provider calls the func - func have notifylistner() it also gets called - whenever notifylistner() gets called then watch() rebuild the entire ui
-      //          Provider
-      //        /    |    \
-      //       /     |     \
-      // Homepg1  Homepg2  Homepg3            
-      //       \     |     /
-      //        \    |    /
-      //        Checkoutpg
-      // everybody talking to same provider        read  -> I want to DO something
-      //                                           watch -> I want to SHOW something
+    //          Provider
+    //        /    |    \
+    //       /     |     \
+    // Homepg1  Homepg2  Homepg3
+    //       \     |     /
+    //        \    |    /
+    //        Checkoutpg
+    // everybody talking to same provider        read  -> I want to DO something
+    //                                           watch -> I want to SHOW something
     return Scaffold(
-      appBar: AppBar(title: Text('view page'), centerTitle: true),
+      appBar: AppBar(title: Text('Checkout'), centerTitle: true),
       body: SafeArea(
         child: Column(
           children: [
@@ -39,13 +40,24 @@ class checkoutpg extends StatelessWidget {
                           : Card(
                               elevation: 10,
                               child: ListTile(
-                                leading: SizedBox(
-                                  height: 100,
-                                  width: 100,
-                                  child: Image(
-                                    image: item.img.image,
+                                leading: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            Detailspg(product: item),
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 100,
+                                    width: 100,
+                                    child: Image(
+                                      image: item.img.image,
 
-                                    fit: BoxFit.cover,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 title: Text('${item.desc} ${item.weight}'),
