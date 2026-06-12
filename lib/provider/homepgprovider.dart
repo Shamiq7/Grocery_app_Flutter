@@ -4,6 +4,8 @@ import 'package:grocery_app_flutter/modals/list.dart';
 
 class homepgprovider extends ChangeNotifier {
   String searchQuery = '';
+  List<Productcards> pproduct = allProduct;
+  // now we replace allProduct with pproduct everywhere (we did this when we were making admin pg, last major thing to add) why see bottom:
 
   void addtocart(Productcards item) {
     item.quantity++;
@@ -23,14 +25,15 @@ class homepgprovider extends ChangeNotifier {
   // can use normal func here too both work, here we are using a getter
   double get totalPrice {
     double total = 0;
-    for (var item in allProduct) {
+    for (var item in pproduct) {
       total += double.parse(item.price.replaceAll('\$', '')) * item.quantity;
     }
     return total;
   }
 
   List<Productcards> get cartItems {
-    return allProduct.where((item) => item.quantity > 0).toList();
+    // return allProduct.where((item) => item.quantity > 0).toList();
+    return pproduct.where((item) => item.quantity > 0).toList();
     // bascially using this logic we are taking all the elemets from allProduct (the super list having all other list), and we are filtering using .where() where we are selecting items from the list having quantity > 0 only that item is passed to the next page (i.e viewpg/checkoutpg)
     // ex: Apple      quantity = 2         after filter
     // Banana     quantity = 0              Apple
@@ -39,7 +42,8 @@ class homepgprovider extends ChangeNotifier {
   }
 
   int get cartCount {
-    return allProduct.where((item) => item.quantity > 0).length;
+    // return allProduct.where((item) => item.quantity > 0).length;
+    return pproduct.where((item) => item.quantity > 0).length;
   }
 
   void updateSearch(String value) {
@@ -49,10 +53,81 @@ class homepgprovider extends ChangeNotifier {
 
   List<Productcards> get filterProduct {
     if (searchQuery.isEmpty) {
-      return allProduct;
+      // return allProduct;
+      return pproduct;
     }
-    return allProduct.where((item) {
+    return pproduct.where((item) {
       return item.desc.toLowerCase().contains(searchQuery.toLowerCase());
     }).toList();
   }
+
+  void addProduct(Productcards item) {
+    pproduct.add(item);
+    notifyListeners();
+  }
+
+  void deleteProduct(Productcards item) {
+    pproduct.remove(item);
+    notifyListeners();
+  }
+
+  void updateProduct(int index, Productcards updateproduct) {
+    pproduct[index] = updateproduct;
+    notifyListeners();
+  }
 }
+
+
+
+
+// before we had admin pg this was the format of the app 
+// allProduct
+//    ↑
+// Admin Page modifies it
+
+// Provider reads it
+
+// Home Page reads it
+
+// Checkout Page reads it
+
+// current architecture
+// allProduct
+//     ↑
+//     │
+// Provider reads it
+//     │
+//     ↓
+// Home Page
+// Checkout Page
+// Details Page
+
+// Admin Page
+//     │
+//     ↓
+// Directly modifies allProduct   therefore allProduct.add(...)
+//                                          allProduct.remove(...) can happen anywhere. The actual source of truth is: allProduct, Provider is just a helper sitting on top 
+
+
+// what we should be doing 
+// Provider
+//    │
+//    ├── products List which stores allProduct
+//    │
+//    ├── addProduct()
+//    ├── deleteProduct()
+//    ├── updateProduct()
+//    │
+//    ↓
+// Home Page
+// Checkout Page
+// Details Page
+// Admin Page
+// now provider.product is source of truth nobody touches allProduct
+
+
+// if we add            List<Productcards> products = allProduct;
+// then the idea becomes 
+// Provider owns products
+//       ↑
+// Everyone talks to Provider

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/Homepg.dart';
 import 'package:grocery_app_flutter/LoginPg.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
-import 'package:grocery_app_flutter/modals/list.dart';
+
+import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+import 'package:provider/provider.dart';
 
 class Adminpg extends StatefulWidget {
   const Adminpg({super.key});
@@ -19,6 +21,8 @@ class _AdminpgState extends State<Adminpg> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<homepgprovider>();
+    final provider = context.read<homepgprovider>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -88,7 +92,7 @@ class _AdminpgState extends State<Adminpg> {
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     SizedBox(height: 20),
-                    Container(
+                    SizedBox(
                       width: 280,
                       height: 50,
                       child: TextField(
@@ -113,7 +117,7 @@ class _AdminpgState extends State<Adminpg> {
                       ),
                     ),
                     SizedBox(height: 15),
-                    Container(
+                    SizedBox(
                       width: 280,
                       height: 50,
 
@@ -139,7 +143,7 @@ class _AdminpgState extends State<Adminpg> {
                       ),
                     ),
                     SizedBox(height: 15),
-                    Container(
+                    SizedBox(
                       width: 280,
                       height: 50,
                       child: TextField(
@@ -164,7 +168,7 @@ class _AdminpgState extends State<Adminpg> {
                       ),
                     ),
                     SizedBox(height: 15),
-                    Container(
+                    SizedBox(
                       width: 280,
                       height: 50,
                       child: TextField(
@@ -189,7 +193,7 @@ class _AdminpgState extends State<Adminpg> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Container(
+                    SizedBox(
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
@@ -229,7 +233,7 @@ class _AdminpgState extends State<Adminpg> {
                             return;
                           }
                           //duplicate check
-                          if (allProduct.any(
+                          if (provider.pproduct.any(
                             (item) =>
                                 item.desc.toLowerCase() ==
                                 namecontroller.text.toLowerCase(),
@@ -239,8 +243,7 @@ class _AdminpgState extends State<Adminpg> {
                             );
                             return;
                           }
-
-                          allProduct.add(
+                          provider.addProduct(
                             Productcards(
                               desc: namecontroller.text,
                               img: Image.asset(imagecontroller.text),
@@ -248,6 +251,14 @@ class _AdminpgState extends State<Adminpg> {
                               weight: weightcontroller.text,
                             ),
                           );
+                          // allProduct.add(      what we were doing before provider
+                          //   Productcards(
+                          //     desc: namecontroller.text,
+                          //     img: Image.asset(imagecontroller.text),
+                          //     price: pricecontroller.text,
+                          //     weight: weightcontroller.text,
+                          //   ),
+                          // );
                           ScaffoldMessenger.of(
                             context,
                           ).showSnackBar(SnackBar(content: Text('Item Added')));
@@ -255,7 +266,7 @@ class _AdminpgState extends State<Adminpg> {
                           pricecontroller.clear();
                           weightcontroller.clear();
                           imagecontroller.clear();
-                          setState(() {});
+                          // setState(() {});
                         },
                         child: Text('Add'),
                       ),
@@ -271,40 +282,41 @@ class _AdminpgState extends State<Adminpg> {
                       width: 320,
 
                       child: ListView.builder(
-                        itemCount: allProduct.length,
+                        itemCount: provider.pproduct.length,
 
                         itemBuilder: (context, index) {
-                          final item = allProduct[index];
+                          final item = provider.pproduct[index];
 
                           return Card(
                             child: ListTile(
                               title: Row(
                                 children: [
                                   CircleAvatar(
-                                    child: item.img,
                                     radius: 40,
                                     backgroundColor: Colors.white,
+                                    child: item.img,
                                   ),
                                   SizedBox(width: 10),
                                   Text('${item.price} \n${item.weight}'),
                                 ],
                               ),
 
-                              // subtitle: Text('${item.price} | ${item.weight}'),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   IconButton(
                                     onPressed: () async {
                                       await _updateItem(context, item, index);
+                                      // setState(() {});
                                     },
                                     icon: Icon(Icons.edit),
                                   ),
 
                                   IconButton(
                                     onPressed: () {
-                                      allProduct.remove(item);
-                                      setState(() {});
+                                      // allProduct.remove(item);
+                                      // setState(() {});
+                                      provider.deleteProduct(item);
                                       ScaffoldMessenger.of(
                                         context,
                                       ).hideCurrentSnackBar();
@@ -365,10 +377,10 @@ class _AdminpgState extends State<Adminpg> {
                 ),
                 SizedBox(height: 5),
                 TextField(
-                  controller: imagecontroller,
+                  controller: imgcontroller,
                   decoration: InputDecoration(
                     label: Text('image'),
-                    hintText: 'image/mango.png',
+                    hintText: 'images/mango.png',
                   ),
                 ),
                 SizedBox(height: 5),
@@ -384,19 +396,29 @@ class _AdminpgState extends State<Adminpg> {
             ),
             ElevatedButton(
               onPressed: () {
+                final provider = context.read<homepgprovider>();
                 if (namecontroller.text.isEmpty ||
                     pricecontroller.text.isEmpty ||
                     weightcontroller.text.isEmpty ||
-                    imagecontroller.text.isEmpty) {
+                    imgcontroller.text.isEmpty) {
                   return;
                 }
-                allProduct[index] = Productcards(
-                  desc: namecontroller.text,
-                  img: Image.asset(imagecontroller.text),
-                  price: pricecontroller.text,
-                  weight: weightcontroller.text,
-                  quantity: item.quantity,
+                provider.updateProduct(
+                  index,
+                  Productcards(
+                    desc: namecontroller.text,
+                    img: Image.asset(imgcontroller.text),
+                    price: pricecontroller.text,
+                    weight: weightcontroller.text,
+                  ),
                 );
+                // allProduct[index] = Productcards(
+                //   desc: namecontroller.text,
+                //   img: Image.asset(imgcontroller.text),
+                //   price: pricecontroller.text,
+                //   weight: weightcontroller.text,
+                //   quantity: item.quantity,
+                // );
                 Navigator.pop(context);
               },
               child: Text('Update'),
