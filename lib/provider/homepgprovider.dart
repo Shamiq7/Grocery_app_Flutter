@@ -69,8 +69,8 @@ class homepgprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteProduct(Productcards item) {
-    pproduct.remove(item);
+  void deleteProduct(String id) {
+    pproduct.removeWhere((item) => item.id == id);
     notifyListeners();
   }
 

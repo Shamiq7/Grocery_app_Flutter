@@ -242,7 +242,7 @@ class Adminpg extends StatelessWidget {
                             );
                             return;
                           }
-                          await addtoDB(
+                          final id = await addtoDB(
                             namecontroller.text,
                             pricecontroller.text,
                             weightcontroller.text,
@@ -250,6 +250,7 @@ class Adminpg extends StatelessWidget {
                           );
                           provider.addProduct(
                             Productcards(
+                              id: id,
                               desc: namecontroller.text,
                               img: Image.asset(imagecontroller.text),
                               price: pricecontroller.text,
@@ -318,10 +319,14 @@ class Adminpg extends StatelessWidget {
                                   ),
 
                                   IconButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       // allProduct.remove(item);
                                       // setState(() {});
-                                      provider.deleteProduct(item);
+                                      final id = item.id!;
+
+                                      await deletfromDB(id);
+                                      if (!context.mounted) return;
+                                      provider.deleteProduct(id);
                                       ScaffoldMessenger.of(
                                         context,
                                       ).hideCurrentSnackBar();
