@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/Homepg.dart';
 import 'package:grocery_app_flutter/LoginPg.dart';
+import 'package:grocery_app_flutter/functions/firestorefunc.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
@@ -194,7 +195,7 @@ class Adminpg extends StatelessWidget {
                     SizedBox(
                       width: 200,
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           //empty field validation
                           if (namecontroller.text.isEmpty ||
                               pricecontroller.text.isEmpty ||
@@ -241,6 +242,12 @@ class Adminpg extends StatelessWidget {
                             );
                             return;
                           }
+                          await addtoDB(
+                            namecontroller.text,
+                            pricecontroller.text,
+                            weightcontroller.text,
+                            imagecontroller.text,
+                          );
                           provider.addProduct(
                             Productcards(
                               desc: namecontroller.text,

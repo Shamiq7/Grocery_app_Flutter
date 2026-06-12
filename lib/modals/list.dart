@@ -7,6 +7,7 @@ final List<Productcards> Productcard = [
     img: Image.asset('images/bread.png'),
     price: '\$20',
     weight: '100g',
+    quantity: 0
   ),
   Productcards(
     desc: 'Toothpaste',

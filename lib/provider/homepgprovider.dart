@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/functions/firestorefunc.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 import 'package:grocery_app_flutter/modals/list.dart';
 
 class homepgprovider extends ChangeNotifier {
   String searchQuery = '';
-  List<Productcards> pproduct = allProduct;
+  // List<Productcards> pproduct = allProduct; //using this before DB
+  List<Productcards> pproduct = [];
+
   // now we replace allProduct with pproduct everywhere (we did this when we were making admin pg, last major thing to add) why see bottom:
 
   void addtocart(Productcards item) {
@@ -73,6 +76,35 @@ class homepgprovider extends ChangeNotifier {
 
   void updateProduct(int index, Productcards updateproduct) {
     pproduct[index] = updateproduct;
+    notifyListeners();
+  }
+
+  // this func askes firestore for products, stores them inside pproduct, refreshes ui
+  //this func must be called before admin,homepg why? if not then data will be called later from DB and admin and user will not see any data
+  //best option call it in initstaein splashscreen.dart so that app opeans - loadproducts() gets called - data comes from DB , - we login (now we can see data is visible for both admin and user)
+  Future<void> loadProducts() async {
+    final products =
+        await getProducts(); // now products have everything inside firebase
+    pproduct = products.map((item) {
+      // firestore gives data as a map, to dispaly it in ui we convert maps to productcards objects
+      print(
+        '////////////////////Data getting loaded////////////////////////////',
+      );
+      print(item);
+      return Productcards(
+        id: item['id'],
+        desc: item['desc'],
+        img: Image.asset(item['imagePath']),
+        price: item['price'].toString(),
+        weight: item['weight'].toString(),
+        quantity: item['quantity'] ?? 0,
+      );
+    }).toList();
+    print(pproduct.length);
+
+    print(
+      '////////////////////Data getting loaded////////////////////////////',
+    );
     notifyListeners();
   }
 }

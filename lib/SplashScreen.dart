@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 import 'package:grocery_app_flutter/LoginPg.dart';
+import 'package:grocery_app_flutter/adminpg.dart';
+import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+import 'package:provider/provider.dart';
 
 class spalshscreen extends StatefulWidget {
   const spalshscreen({super.key});
@@ -13,6 +16,16 @@ class spalshscreen extends StatefulWidget {
 
 class _spalshscreenState extends State<spalshscreen> {
   bool isLogin = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.microtask(() async {
+      await context.read<homepgprovider>().loadProducts();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +135,7 @@ class _spalshscreenState extends State<spalshscreen> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Loginpg(),
+                                          builder: (context) => Adminpg(),
                                         ),
                                       );
                                     },
@@ -149,6 +162,3 @@ class _spalshscreenState extends State<spalshscreen> {
     );
   }
 }
-
-
-

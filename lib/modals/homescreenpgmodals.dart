@@ -5,9 +5,11 @@ class Productcards {
   final String desc;
   final Image img;
   final String weight;
-  int quantity = 0;
+  String? id;
+  int quantity;
 
   Productcards({
+    this.id,
     required this.desc,
     required this.img,
     required this.price,
