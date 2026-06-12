@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
 import 'package:grocery_app_flutter/detailspg.dart';
-import 'package:grocery_app_flutter/modals/list.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -19,10 +18,11 @@ class homepg1 extends StatelessWidget {
     final provider = context.read<homepgprovider>(); //calls functions
 
     return ListView.builder(
-      itemCount: Productcard.length,
+      // itemCount: Productcard.length,
+      itemCount: provider.pproduct.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        final item = Productcard[index];
+        final item = provider.pproduct[index];
         return Container(
           height: 310,
           width: 240,
@@ -41,7 +41,9 @@ class homepg1 extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Detailspg(product: item,)),
+                        MaterialPageRoute(
+                          builder: (context) => Detailspg(product: item),
+                        ),
                       );
                     },
                     child: ClipRRect(

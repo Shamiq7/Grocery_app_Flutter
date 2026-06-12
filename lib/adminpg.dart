@@ -6,17 +6,15 @@ import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
-class Adminpg extends StatefulWidget {
-  const Adminpg({super.key});
+class Adminpg extends StatelessWidget {
+  Adminpg({super.key});
 
-  @override
-  State<Adminpg> createState() => _AdminpgState();
-}
-
-class _AdminpgState extends State<Adminpg> {
   final namecontroller = TextEditingController();
+
   final pricecontroller = TextEditingController();
+
   final weightcontroller = TextEditingController();
+
   final imagecontroller = TextEditingController();
 
   @override
