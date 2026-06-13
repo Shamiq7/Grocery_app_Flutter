@@ -64,6 +64,8 @@ class homepgprovider extends ChangeNotifier {
     }).toList();
   }
 
+  ////////////////////////////////////////////////////////////////////////////////
+
   void addProduct(Productcards item) {
     pproduct.add(item);
     notifyListeners();
@@ -82,7 +84,33 @@ class homepgprovider extends ChangeNotifier {
   // this func askes firestore for products, stores them inside pproduct, refreshes ui
   //this func must be called before admin,homepg why? if not then data will be called later from DB and admin and user will not see any data
   //best option call it in initstaein splashscreen.dart so that app opeans - loadproducts() gets called - data comes from DB , - we login (now we can see data is visible for both admin and user)
-  Future<void> loadProducts() async {
+  // Future<void> loadProducts() async {
+  //   final products =
+  //       await getProducts(); // now products have everything inside firebase
+  //   pproduct = products.map((item) {
+  //     // firestore gives data as a map, to dispaly it in ui we convert maps to productcards objects
+  //     print(
+  //       '////////////////////Data getting loaded////////////////////////////',
+  //     );
+  //     print(item);
+  //     return Productcards(
+  //       id: item['id'],
+  //       desc: item['desc'],
+  //       img: Image.asset(item['imagePath']),
+  //       price: item['price'].toString(),
+  //       weight: item['weight'].toString(),
+  //       quantity: item['quantity'] ?? 0,
+  //     );
+  //   }).toList();
+  //   print(pproduct.length);
+
+  //   print(
+  //     '////////////////////Data getting loaded////////////////////////////',
+  //   );
+  //   notifyListeners();
+  // }  not using it anymore we use refreshPorducts now
+
+  Future refreshProducts() async {
     final products =
         await getProducts(); // now products have everything inside firebase
     pproduct = products.map((item) {

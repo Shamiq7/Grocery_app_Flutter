@@ -38,13 +38,6 @@ Future<List<Map<String, dynamic>>> getProducts() async {
 Future deletfromDB(String docID) async {
   await FirebaseFirestore.instance.collection('products').doc(docID).delete();
 }
-
-
-
-
-
-
-
 // Firestore
 //    ↓
 // getProducts()

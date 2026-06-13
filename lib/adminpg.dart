@@ -242,21 +242,22 @@ class Adminpg extends StatelessWidget {
                             );
                             return;
                           }
-                          final id = await addtoDB(
+                          await addtoDB(
                             namecontroller.text,
                             pricecontroller.text,
                             weightcontroller.text,
                             imagecontroller.text,
                           );
-                          provider.addProduct(
-                            Productcards(
-                              id: id,
-                              desc: namecontroller.text,
-                              img: Image.asset(imagecontroller.text),
-                              price: pricecontroller.text,
-                              weight: weightcontroller.text,
-                            ),
-                          );
+                          await provider.refreshProducts();
+                          // provider.addProduct(
+                          //   Productcards(
+                          //     id: id,
+                          //     desc: namecontroller.text,
+                          //     img: Image.asset(imagecontroller.text),
+                          //     price: pricecontroller.text,
+                          //     weight: weightcontroller.text,
+                          //   ),
+                          // );
                           // allProduct.add(      what we were doing before provider
                           //   Productcards(
                           //     desc: namecontroller.text,
@@ -272,6 +273,7 @@ class Adminpg extends StatelessWidget {
                           pricecontroller.clear();
                           weightcontroller.clear();
                           imagecontroller.clear();
+
                           // setState(() {});
                         },
                         child: Text('Add'),
