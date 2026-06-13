@@ -120,6 +120,7 @@ class _LoginpgState extends State<Loginpg> {
                         SizedBox(
                           width: 350,
                           child: TextFormField(
+                            obscureText: true,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app_flutter/LoginPg.dart';
 
 import 'dart:ui';
 
@@ -22,8 +23,9 @@ class _spalshscreenState extends State<spalshscreen> {
     super.initState();
     Future.microtask(() async {
       // await context.read<homepgprovider>().loadProducts();
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await context.read<homepgprovider>().refreshProducts();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // await context.read<homepgprovider>().refreshProducts();
+        context.read<homepgprovider>().listenToProducts();
       });
       // await context.read<homepgprovider>().refreshProducts();
     });
@@ -138,7 +140,7 @@ class _spalshscreenState extends State<spalshscreen> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Adminpg(),
+                                          builder: (context) => Loginpg(),
                                         ),
                                       );
                                     },

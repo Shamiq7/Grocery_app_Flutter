@@ -278,7 +278,7 @@ class Adminpg extends StatelessWidget {
                             return;
                           }
 
-                          final docRef = await addtoDB(
+                          await addtoDB(
                             namecontroller.text,
                             // pricecontroller.text,
                             cleanedPrice,
@@ -287,19 +287,19 @@ class Adminpg extends StatelessWidget {
                             catagorycontroller.text,
                           );
                           // await provider.refreshProducts();
-                          await context
-                              .read<homepgprovider>()
-                              .refreshProducts();
+                          // await context
+                          //     .read<homepgprovider>()
+                          //     .refreshProducts();
 
-                          provider.addProduct(
-                            Productcards(
-                              id: docRef.id,
-                              desc: namecontroller.text,
-                              img: Image.asset(imagecontroller.text),
-                              price: pricecontroller.text,
-                              weight: weightcontroller.text,
-                            ),
-                          );
+                          // provider.addProduct(
+                          //   Productcards(
+                          //     id: docRef.id,
+                          //     desc: namecontroller.text,
+                          //     img: Image.asset(imagecontroller.text),
+                          //     price: pricecontroller.text,
+                          //     weight: weightcontroller.text,
+                          //   ),
+                          // );
                           // allProduct.add(      what we were doing before provider
                           //   Productcards(
                           //     desc: namecontroller.text,
@@ -370,8 +370,8 @@ class Adminpg extends StatelessWidget {
                                       final id = item.id!;
 
                                       await deletfromDB(id);
-                                      if (!context.mounted) return;
-                                      provider.deleteProduct(id);
+                                      // if (!context.mounted) return;
+                                      // provider.deleteProduct(id);
                                       ScaffoldMessenger.of(
                                         context,
                                       ).hideCurrentSnackBar();
@@ -457,13 +457,13 @@ class Adminpg extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                final provider = context.read<homepgprovider>();
-                if (namecontroller.text.isEmpty ||
-                    pricecontroller.text.isEmpty ||
-                    weightcontroller.text.isEmpty ||
-                    imgcontroller.text.isEmpty) {
-                  return;
-                }
+                // final provider = context.read<homepgprovider>();
+                // if (namecontroller.text.isEmpty ||
+                //     pricecontroller.text.isEmpty ||
+                //     weightcontroller.text.isEmpty ||
+                //     imgcontroller.text.isEmpty) {
+                //   return;
+                // }
                 await updateDB(
                   item.id!,
                   namecontroller.text,
@@ -473,7 +473,7 @@ class Adminpg extends StatelessWidget {
                   catagorycontrol.text,
                 );
 
-                await provider.refreshProducts();
+                // await provider.refreshProducts();
                 Navigator.pop(context);
                 // provider.updateProduct(
                 //   index,

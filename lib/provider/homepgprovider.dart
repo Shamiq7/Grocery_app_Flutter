@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/functions/firestorefunc.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
@@ -80,37 +81,63 @@ class homepgprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future refreshProducts() async {
-    final products =
-        await getProducts(); // now products have everything inside firebase
-    pproduct = products.map((item) {
-      // firestore gives data as a map, to dispaly it in ui we convert maps to productcards objects
-      print(
-        '////////////////////Data getting loaded////////////////////////////',
-      );
-      print(item);
+void listenToProducts() {
+FirebaseFirestore.instance
+      .collection('products')
+      .snapshots()
+      .listen((snapshot) {
+    
+    pproduct = snapshot.docs.map((doc) {
+      final data = doc.data();
+
       return Productcards(
-        id: item['id'],
-        desc: item['desc'],
-        img: Image.asset(item['imagePath']),
-        price: item['price'].toString(),
-        weight: item['weight'].toString(),
-        catagory: item['catagory'],
-        quantity: item['quantity'] ?? 0,
+        id: doc.id,
+        desc: data['desc'],
+        img: Image.asset(data['imagePath']),
+        price: data['price'].toString(),
+        weight: data['weight'].toString(),
+       catagory: data['catagory'].toString(),
+        quantity: data['quantity'] ?? 0,
+        
       );
     }).toList();
-    print(pproduct.length);
 
-    print(
-      '////////////////////Data getting loaded////////////////////////////',
-    );
     notifyListeners();
-  }
+  });
+}
+  
 
   List<Productcards> getbyCatagory(String catagory) {
     return pproduct.where((item) => item.catagory == catagory).toList();
   }
 }
+
+// Future refreshProducts() async {
+//     final products =
+//         await getProducts(); // now products have everything inside firebase
+//     pproduct = products.map((item) {
+//       // firestore gives data as a map, to dispaly it in ui we convert maps to productcards objects
+//       print(
+//         '////////////////////Data getting loaded////////////////////////////',
+//       );
+//       print(item);
+//       return Productcards(
+//         id: item['id'],
+//         desc: item['desc'],
+//         img: Image.asset(item['imagePath']),
+//         price: item['price'].toString(),
+//         weight: item['weight'].toString(),
+//         catagory: item['catagory'],
+//         quantity: item['quantity'] ?? 0,
+//       );
+//     }).toList();
+//     print(pproduct.length);
+
+//     print(
+//       '////////////////////Data getting loaded////////////////////////////',
+//     );
+//     notifyListeners();
+//   }
 
   // this func askes firestore for products, stores them inside pproduct, refreshes ui
   //this func must be called before admin,homepg why? if not then data will be called later from DB and admin and user will not see any data
