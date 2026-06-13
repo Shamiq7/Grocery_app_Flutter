@@ -61,7 +61,7 @@ class checkoutpg extends StatelessWidget {
                                 ),
                                 title: Text('${item.desc} ${item.weight}'),
                                 subtitle: Text(
-                                  item.price,
+                                  "${item.price}\$",
                                   style: TextStyle(
                                     fontSize: 19,
                                     fontWeight: FontWeight.bold,

@@ -68,7 +68,7 @@ class Detailspg extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    product.price,
+                    "${product.price}\$",
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,

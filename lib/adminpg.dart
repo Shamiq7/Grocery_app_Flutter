@@ -100,7 +100,7 @@ class Adminpg extends StatelessWidget {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'Product Name',
+                          hintText: 'Mango',
                           label: Text('Add Product name'),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -126,8 +126,9 @@ class Adminpg extends StatelessWidget {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'Price',
+                          hintText: 'Ex: 29\$',
                           label: Text('Add Product Price'),
+
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide(width: 1.5),
@@ -151,7 +152,7 @@ class Adminpg extends StatelessWidget {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'Weight in g',
+                          hintText: 'Weight in (g)',
                           label: Text('Add Product Weight'),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -176,8 +177,9 @@ class Adminpg extends StatelessWidget {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'images/name.png',
+                          hintText: 'Ex: images/name.png',
                           label: Text('Add Product Image URL'),
+
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide(width: 1.5),
@@ -201,7 +203,7 @@ class Adminpg extends StatelessWidget {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'write catagory',
+                          hintText: 'Ex: reccomend/fruit/utility',
                           label: Text('Add Product catagory'),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -251,7 +253,12 @@ class Adminpg extends StatelessWidget {
                           }
 
                           //price validation
-                          if (double.tryParse(pricecontroller.text) == null) {
+                          String cleanedPrice = pricecontroller.text.replaceAll(
+                            RegExp(r'[^0-9.]'),
+                            '',
+                          );
+
+                          if (double.tryParse(cleanedPrice) == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Price must be a valid number'),
@@ -270,14 +277,20 @@ class Adminpg extends StatelessWidget {
                             );
                             return;
                           }
+
                           final docRef = await addtoDB(
                             namecontroller.text,
-                            pricecontroller.text,
+                            // pricecontroller.text,
+                            cleanedPrice,
                             weightcontroller.text,
                             imagecontroller.text,
                             catagorycontroller.text,
                           );
                           // await provider.refreshProducts();
+                          await context
+                              .read<homepgprovider>()
+                              .refreshProducts();
+
                           provider.addProduct(
                             Productcards(
                               id: docRef.id,
@@ -461,6 +474,7 @@ class Adminpg extends StatelessWidget {
                 );
 
                 await provider.refreshProducts();
+                Navigator.pop(context);
                 // provider.updateProduct(
                 //   index,
                 //   Productcards(
@@ -477,7 +491,6 @@ class Adminpg extends StatelessWidget {
                 //   weight: weightcontroller.text,
                 //   quantity: item.quantity,
                 // );
-                Navigator.pop(context);
               },
               child: Text('Update'),
             ),

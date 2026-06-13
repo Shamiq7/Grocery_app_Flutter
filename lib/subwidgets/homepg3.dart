@@ -53,7 +53,7 @@ class Homepg3 extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Text(
-                        item.price,
+                        "${item.price}\$",
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,

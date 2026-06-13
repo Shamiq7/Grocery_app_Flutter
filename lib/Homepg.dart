@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/LoginPg.dart';
 import 'package:grocery_app_flutter/adminpg.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
@@ -87,7 +86,7 @@ class Homepg extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: 5),
                         CircleAvatar(
                           backgroundColor: const Color.fromARGB(
                             255,
@@ -95,8 +94,8 @@ class Homepg extends StatelessWidget {
                             101,
                             19,
                           ),
-                          radius: 30,
-                          backgroundImage: AssetImage('images/man.png'),
+                          radius: 50,
+                          backgroundImage: AssetImage('images/logo.png'),
                         ),
                       ],
                     ),

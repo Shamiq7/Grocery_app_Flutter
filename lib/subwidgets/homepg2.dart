@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/checkoutpg.dart';
 import 'package:grocery_app_flutter/detailspg.dart';
-import 'package:grocery_app_flutter/modals/list.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +51,7 @@ class Homepg2 extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Text(
-                        item.price,
+                        "${item.price}\$",
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,

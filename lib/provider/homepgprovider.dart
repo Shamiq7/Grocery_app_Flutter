@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app_flutter/functions/firestorefunc.dart';
 import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
-import 'package:grocery_app_flutter/modals/list.dart';
 
 class homepgprovider extends ChangeNotifier {
   String searchQuery = '';

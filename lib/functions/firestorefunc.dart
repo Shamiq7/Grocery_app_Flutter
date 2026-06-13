@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 //this func reads data from firestore
 addtoDB(String desc, String price, String weight, String imagepath, String catagory) async {
