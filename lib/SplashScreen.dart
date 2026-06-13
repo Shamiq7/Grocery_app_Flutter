@@ -23,7 +23,10 @@ class _spalshscreenState extends State<spalshscreen> {
     super.initState();
     Future.microtask(() async {
       // await context.read<homepgprovider>().loadProducts();
-      await context.read<homepgprovider>().refreshProducts();
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await context.read<homepgprovider>().refreshProducts();
+      });
+      // await context.read<homepgprovider>().refreshProducts();
     });
   }
 

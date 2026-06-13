@@ -242,22 +242,22 @@ class Adminpg extends StatelessWidget {
                             );
                             return;
                           }
-                          await addtoDB(
+                          final docRef = await addtoDB(
                             namecontroller.text,
                             pricecontroller.text,
                             weightcontroller.text,
                             imagecontroller.text,
                           );
-                          await provider.refreshProducts();
-                          // provider.addProduct(
-                          //   Productcards(
-                          //     id: id,
-                          //     desc: namecontroller.text,
-                          //     img: Image.asset(imagecontroller.text),
-                          //     price: pricecontroller.text,
-                          //     weight: weightcontroller.text,
-                          //   ),
-                          // );
+                          // await provider.refreshProducts();
+                          provider.addProduct(
+                            Productcards(
+                              id: docRef.id,
+                              desc: namecontroller.text,
+                              img: Image.asset(imagecontroller.text),
+                              price: pricecontroller.text,
+                              weight: weightcontroller.text,
+                            ),
+                          );
                           // allProduct.add(      what we were doing before provider
                           //   Productcards(
                           //     desc: namecontroller.text,
@@ -408,7 +408,7 @@ class Adminpg extends StatelessWidget {
               child: Text('cancel'),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 final provider = context.read<homepgprovider>();
                 if (namecontroller.text.isEmpty ||
                     pricecontroller.text.isEmpty ||
@@ -416,15 +416,24 @@ class Adminpg extends StatelessWidget {
                     imgcontroller.text.isEmpty) {
                   return;
                 }
-                provider.updateProduct(
-                  index,
-                  Productcards(
-                    desc: namecontroller.text,
-                    img: Image.asset(imgcontroller.text),
-                    price: pricecontroller.text,
-                    weight: weightcontroller.text,
-                  ),
+                await updateDB(
+                  item.id!,
+                  namecontroller.text,
+                  pricecontroller.text,
+                  weightcontroller.text,
+                  imgcontroller.text,
                 );
+
+                await provider.refreshProducts();
+                // provider.updateProduct(
+                //   index,
+                //   Productcards(
+                //     desc: namecontroller.text,
+                //     img: Image.asset(imgcontroller.text),
+                //     price: pricecontroller.text,
+                //     weight: weightcontroller.text,
+                //   ),
+                // );
                 // allProduct[index] = Productcards(
                 //   desc: namecontroller.text,
                 //   img: Image.asset(imgcontroller.text),
