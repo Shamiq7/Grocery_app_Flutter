@@ -17,6 +17,7 @@ class Adminpg extends StatelessWidget {
   final weightcontroller = TextEditingController();
 
   final imagecontroller = TextEditingController();
+  final catagorycontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +177,32 @@ class Adminpg extends StatelessWidget {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'images/name.png',
-                          label: Text('Add Product Image URl'),
+                          label: Text('Add Product Image URL'),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(width: 1.5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              width: 2,
+                              style: BorderStyle.solid,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    SizedBox(
+                      width: 280,
+                      height: 50,
+                      child: TextField(
+                        controller: catagorycontroller,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'write catagory',
+                          label: Text('Add Product catagory'),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide(width: 1.5),
@@ -200,7 +226,8 @@ class Adminpg extends StatelessWidget {
                           if (namecontroller.text.isEmpty ||
                               pricecontroller.text.isEmpty ||
                               weightcontroller.text.isEmpty ||
-                              imagecontroller.text.isEmpty) {
+                              imagecontroller.text.isEmpty ||
+                              catagorycontroller.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('PLease Fill All the Fields'),
@@ -222,6 +249,7 @@ class Adminpg extends StatelessWidget {
                             );
                             return;
                           }
+
                           //price validation
                           if (double.tryParse(pricecontroller.text) == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -247,6 +275,7 @@ class Adminpg extends StatelessWidget {
                             pricecontroller.text,
                             weightcontroller.text,
                             imagecontroller.text,
+                            catagorycontroller.text,
                           );
                           // await provider.refreshProducts();
                           provider.addProduct(
@@ -273,6 +302,7 @@ class Adminpg extends StatelessWidget {
                           pricecontroller.clear();
                           weightcontroller.clear();
                           imagecontroller.clear();
+                          catagorycontroller.clear();
 
                           // setState(() {});
                         },
@@ -364,6 +394,7 @@ class Adminpg extends StatelessWidget {
     final pricecontroller = TextEditingController(text: item.price);
     final weightcontroller = TextEditingController(text: item.weight);
     final imgcontroller = TextEditingController();
+    final catagorycontrol = TextEditingController(text: item.catagory);
     return showDialog(
       context: context,
       builder: (context) {
@@ -396,6 +427,10 @@ class Adminpg extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 5),
+                TextField(
+                  controller: catagorycontrol,
+                  decoration: InputDecoration(label: Text('Catagory')),
+                ),
               ],
             ),
           ),
@@ -422,6 +457,7 @@ class Adminpg extends StatelessWidget {
                   pricecontroller.text,
                   weightcontroller.text,
                   imgcontroller.text,
+                  catagorycontrol.text,
                 );
 
                 await provider.refreshProducts();

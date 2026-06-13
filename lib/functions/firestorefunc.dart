@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 //this func reads data from firestore
-addtoDB(String desc, String price, String weight, String imagepath) async {
+addtoDB(String desc, String price, String weight, String imagepath, String catagory) async {
   final docRef = await FirebaseFirestore.instance.collection('products').add({
     'desc': desc,
     'price': price,
     'weight': weight,
     'imagePath': imagepath,
     'quantity': 0,
+    'catagory' : catagory,
   });
   print('/////////////// ADDED TO DATABASE /////////////////');
   return docRef;
@@ -38,12 +39,14 @@ Future updateDB(
   String price,
   String weight,
   String imagepath,
+  String catagory,
 ) async {
   await FirebaseFirestore.instance.collection('products').doc(id).update({
     'desc' : desc,
     'price' : price,
     'weight' : weight,
-    'imagePath' : imagepath
+    'imagePath' : imagepath,
+    'catagory' : catagory
   });
     print('///////////////PRODUCT UPDATED/////////////////');
 }

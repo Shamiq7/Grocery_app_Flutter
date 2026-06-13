@@ -13,11 +13,12 @@ class Homepg2 extends StatelessWidget {
     // final provider2 = context.watch<homepgprovider>();
     context.watch<homepgprovider>();
     final provider = context.read<homepgprovider>();
+    final product = provider.getbyCatagory('fruit');
     return ListView.builder(
-      itemCount: product2.length,
+      itemCount: product.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        final item = product2[index];
+        final item = product[index];
         return Container(
           height: 310,
           width: 240,

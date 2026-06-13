@@ -16,13 +16,13 @@ class homepg1 extends StatelessWidget {
         >(); // why use this here? because when provider.addtocart etc is called then notifylistner gets called and we need that ui gets rebuild in homepg1, but if we have no watch( ) then we cannot rebuild that is why we use it here
     //why not use provider2 here because we have no specific ui that needs rebuilding like something inside text(__), listview
     final provider = context.read<homepgprovider>(); //calls functions
-
+    final product = provider.getbyCatagory('reccomend');
     return ListView.builder(
       // itemCount: Productcard.length,
-      itemCount: provider.pproduct.length,
+      itemCount: product.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        final item = provider.pproduct[index];
+        final item = product[index];
         return Container(
           height: 310,
           width: 240,

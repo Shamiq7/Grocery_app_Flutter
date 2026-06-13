@@ -81,7 +81,6 @@ class homepgprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   Future refreshProducts() async {
     final products =
         await getProducts(); // now products have everything inside firebase
@@ -97,6 +96,7 @@ class homepgprovider extends ChangeNotifier {
         img: Image.asset(item['imagePath']),
         price: item['price'].toString(),
         weight: item['weight'].toString(),
+        catagory: item['catagory'],
         quantity: item['quantity'] ?? 0,
       );
     }).toList();
@@ -106,6 +106,10 @@ class homepgprovider extends ChangeNotifier {
       '////////////////////Data getting loaded////////////////////////////',
     );
     notifyListeners();
+  }
+
+  List<Productcards> getbyCatagory(String catagory) {
+    return pproduct.where((item) => item.catagory == catagory).toList();
   }
 }
 

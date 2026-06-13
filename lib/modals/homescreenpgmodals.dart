@@ -6,9 +6,11 @@ class Productcards {
   final Image img;
   final String weight;
   String? id;
+ String? catagory;
   int quantity;
 
   Productcards({
+    this.catagory,
     this.id,
     required this.desc,
     required this.img,
