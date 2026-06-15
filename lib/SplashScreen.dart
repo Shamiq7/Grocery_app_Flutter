@@ -3,7 +3,6 @@ import 'package:grocery_app_flutter/LoginPg.dart';
 
 import 'dart:ui';
 
-import 'package:grocery_app_flutter/adminpg.dart';
 import 'package:grocery_app_flutter/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +14,7 @@ class spalshscreen extends StatefulWidget {
 }
 
 class _spalshscreenState extends State<spalshscreen> {
-  bool isLogin = false;
+ 
 
   @override
   void initState() {

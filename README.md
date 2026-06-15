@@ -163,7 +163,10 @@ The Splash Screen serves as the entry point of the application. It introduces us
 
 <p align="center">
   <img src="images/ss2.png" width="250">
-  <img src="images/ss3.png" width="250">
+</p>
+
+<p align="center">
+  <img src="images/ss3.png" width="900">
 </p>
 
 The Login Page allows users to enter their name, email address, and password.
@@ -265,8 +268,11 @@ All modifications are synchronized with Firestore and reflected throughout the a
 ## 7. Product Creation
 
 <p align="center">
-  <img src="images/ss10.png" width="250">
-  <img src="images/ss11.png" width="250">
+  <img src="images/ss10.png" width="900">
+</p>
+
+<p align="center">
+  <img src="images/ss11.png" width="900">
 </p>
 
 Administrators can create new products by entering:
