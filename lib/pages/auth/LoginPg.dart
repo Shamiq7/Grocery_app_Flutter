@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/Homepg.dart';
-import 'package:grocery_app_flutter/adminpg.dart';
-import 'package:grocery_app_flutter/functions/authfunction.dart';
+import 'package:grocery_app_flutter/pages/Homepg.dart';
+import 'package:grocery_app_flutter/pages/adminpg.dart';
+import 'package:grocery_app_flutter/services/functions/authfunction.dart';
 
 class Loginpg extends StatefulWidget {
   const Loginpg({super.key});

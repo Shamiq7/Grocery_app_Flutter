@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/Homepg.dart';
-import 'package:grocery_app_flutter/LoginPg.dart';
-import 'package:grocery_app_flutter/functions/firestorefunc.dart';
-import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
+import 'package:grocery_app_flutter/pages/Homepg.dart';
+import 'package:grocery_app_flutter/pages/auth/LoginPg.dart';
+import 'package:grocery_app_flutter/services/functions/firestorefunc.dart';
+import 'package:grocery_app_flutter/services/modals/homescreenpgmodals.dart';
 
-import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+import 'package:grocery_app_flutter/services/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
 class Adminpg extends StatelessWidget {

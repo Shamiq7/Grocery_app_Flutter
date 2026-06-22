@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:grocery_app_flutter/modals/homescreenpgmodals.dart';
+import 'package:grocery_app_flutter/services/modals/homescreenpgmodals.dart';
 
 final List<Productcards> Productcard = [
   Productcards(

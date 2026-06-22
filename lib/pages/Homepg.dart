@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/adminpg.dart';
-import 'package:grocery_app_flutter/checkoutpg.dart';
-import 'package:grocery_app_flutter/provider/homepgprovider.dart';
-import 'package:grocery_app_flutter/subwidgets/filterpg.dart';
-import 'package:grocery_app_flutter/subwidgets/homepg1.dart';
-import 'package:grocery_app_flutter/subwidgets/homepg2.dart';
-import 'package:grocery_app_flutter/subwidgets/homepg3.dart';
+import 'package:grocery_app_flutter/pages/adminpg.dart';
+import 'package:grocery_app_flutter/pages/checkoutpg.dart';
+import 'package:grocery_app_flutter/services/provider/homepgprovider.dart';
+import 'package:grocery_app_flutter/widgets/filterpg.dart';
+import 'package:grocery_app_flutter/widgets/homepg1.dart';
+import 'package:grocery_app_flutter/widgets/homepg2.dart';
+import 'package:grocery_app_flutter/widgets/homepg3.dart';
 import 'package:provider/provider.dart';
 
 // Productcards Model

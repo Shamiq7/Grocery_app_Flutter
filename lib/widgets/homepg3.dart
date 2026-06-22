@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/checkoutpg.dart';
-import 'package:grocery_app_flutter/detailspg.dart';
-import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+import 'package:grocery_app_flutter/pages/checkoutpg.dart';
+import 'package:grocery_app_flutter/pages/detailspg.dart';
+
+import 'package:grocery_app_flutter/services/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
-class Homepg2 extends StatelessWidget {
-  const Homepg2({super.key});
+class Homepg3 extends StatelessWidget {
+  const Homepg3({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final provider2 = context.watch<homepgprovider>();
     context.watch<homepgprovider>();
     final provider = context.read<homepgprovider>();
-    final product = provider.getbyCatagory('fruit');
+    final product = provider.getbyCatagory('utility');
     return ListView.builder(
       itemCount: product.length,
       scrollDirection: Axis.horizontal,
@@ -33,12 +33,14 @@ class Homepg2 extends StatelessWidget {
                   width: 180,
 
                   child: InkWell(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Detailspg(product: item),
-                      ),
-                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Detailspg(product: item),
+                        ),
+                      );
+                    },
                     child: ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(20),
 

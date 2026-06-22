@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app_flutter/detailspg.dart';
-import 'package:grocery_app_flutter/provider/homepgprovider.dart';
+import 'package:grocery_app_flutter/pages/detailspg.dart';
+import 'package:grocery_app_flutter/services/provider/homepgprovider.dart';
 import 'package:provider/provider.dart';
 
 class Filterpg extends StatelessWidget {
